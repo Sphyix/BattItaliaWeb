@@ -1,0 +1,1 @@
+export const webApiUrl = 'http://pandoplex.duckdns.org/api'

@@ -1,0 +1,109 @@
+&nbsp;
+<div class="card">
+  <div class="drag card-header callout callout-info font-weight-bold">
+    <label>Informazioni base</label>
+    <div class="card-actions">
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <div class="input-group">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Email</mat-label>
+            <input type="email" required matInput placeholder="Ex. pat@example.com" [(ngModel)]="email" name="mail"
+              #Mail>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <div class="input-group">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Username</mat-label>
+            <input type="text" required matInput [ngModel]="nome" name="username" #Username>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <div class="input-group">
+          <mat-form-field appearance="fill">
+            <mat-label>Permessi</mat-label>
+            <mat-select [(ngModel)]="permission" required [ngModelOptions]="{standalone: true}" name="permission"
+              #Permission>
+              <mat-option *ngFor="let perm of permissions" [value]="perm.value">
+                {{perm.text}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+&nbsp;
+<div class="card">
+  <div class="drag card-header callout callout-info font-weight-bold">
+    <label>Cambio Password</label>
+    <div class="card-actions">
+      <button type="button" *ngIf="!this.isPasswordChange" class="btn" (click)="this.isPasswordChange = !this.isPasswordChange"> Abilita cambio Password
+      </button>
+      <button type="button" *ngIf="this.isPasswordChange" class="btn" (click)="this.isPasswordChange = !this.isPasswordChange"> Disabilita cambio Password
+      </button>
+    </div>
+  </div>
+  <div class="card-body" *ngIf="this.isPasswordChange">
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <div class="input-group">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Vecchia Password</mat-label>
+            <input type="password" [required]="this.isPasswordChange" matInput [(ngModel)]="oldPsw" name="oldPsw"
+              #OldPsw>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <div class="input-group">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Nuova Password</mat-label>
+            <input type="password" [required]="this.isPasswordChange" matInput [ngModel]="newPsw" name="newPsw" #NewPsw>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-group col-md-4">
+        <div class="input-group">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Ripeti Password</mat-label>
+            <input type="password" [required]="this.isPasswordChange" matInput [ngModel]="repeatNewPsw"
+              name="repeatNewPsw" #RepeatNewPsw>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+&nbsp;
+
+<div class="card">
+  <div class="card-body">
+    <div style="float: right;">
+      <button mat-raised-button color="accent" (click)="saveClick()">Salva</button>
+    </div>
+    <div style="float: left;">
+        <button mat-raised-button color="primary" (click)="backClick()">Indietro</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- <kendo-dropdownlist [data]="this.permissions" matInput
+  [textField]="'text'" [valueField]="'value'" class="form-control" name="permissions"
+  #Permissions
+  [valuePrimitive]="true"
+  [(ngModel)]="permission">
+</kendo-dropdownlist> -->

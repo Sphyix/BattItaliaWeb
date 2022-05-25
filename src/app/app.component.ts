@@ -26,10 +26,10 @@ export class AppComponent implements OnInit, OnDestroy {
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
 
-      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+      this.showAdminBoard = this.roles.includes('2');
+      this.showModeratorBoard = this.roles.includes('1') || this.roles.includes('2');
 
-      this.username = user.username;
+      this.username = user.userName;
     }
 
     this.eventBusSub = this.eventBusService.on('logout', () => {

@@ -1,0 +1,6 @@
+{
+	"appId": "com.fmasi.battItalia",
+	"appName": "battItalia",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}

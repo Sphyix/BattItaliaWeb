@@ -14,6 +14,13 @@ import { BoardModeratorComponent } from './board-moderator/board-moderator.compo
 import { BoardUserComponent } from './board-user/board-user.component';
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
+import { TableModule } from 'ngx-easy-table';
+import { AuthGuardService } from './_services/auth.guard';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material/material.module';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+
 
 @NgModule({
   declarations: [
@@ -24,15 +31,20 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     ProfileComponent,
     BoardAdminComponent,
     BoardModeratorComponent,
-    BoardUserComponent
+    BoardUserComponent,
+    ProfileEditComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    TableModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    DropDownsModule
   ],
-  providers: [authInterceptorProviders],
+  providers: [authInterceptorProviders, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
