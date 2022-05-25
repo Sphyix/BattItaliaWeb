@@ -4,13 +4,7 @@ const config: CapacitorConfig = {
   appId: 'com.fmasi.battItalia',
   appName: 'battItalia',
   webDir: 'dist',
-  bundledWebRuntime: false,
-  server: {
-    url: 'http://pandoplex.duckdns.org',
-    hostname: 'pandoplex.duckdns.org',
-    androidScheme: 'http',
-    allowNavigation: [],
-  },
+  bundledWebRuntime: false
 };
 
 export default config;
