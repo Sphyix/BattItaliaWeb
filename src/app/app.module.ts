@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +20,8 @@ import { AuthGuardService } from './_services/auth.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { MyWorkComponent } from './my-work/my-work/my-work.component';
+import { MyWorkEditComponent } from './my-work/components/my-work-edit/my-work-edit.component';
 
 
 @NgModule({
@@ -33,6 +35,8 @@ import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
     BoardModeratorComponent,
     BoardUserComponent,
     ProfileEditComponent,
+    MyWorkComponent,
+    MyWorkEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,8 @@ import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
     TableModule,
     BrowserAnimationsModule,
     MaterialModule,
-    DropDownsModule
+    DropDownsModule,
+    ReactiveFormsModule 
   ],
   providers: [authInterceptorProviders, AuthGuardService],
   bootstrap: [AppComponent]

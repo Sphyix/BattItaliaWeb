@@ -11,8 +11,13 @@
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Email</mat-label>
-            <input type="email" required matInput placeholder="Ex. pat@example.com" [(ngModel)]="email" name="mail"
-              #Mail>
+            <input type="email" required matInput [formControl]="emailFormControl" [(ngModel)]="this.email" name="email" placeholder="Ex. pat@example.com"> 
+            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -20,7 +25,10 @@
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Username</mat-label>
-            <input type="text" required matInput [ngModel]="nome" name="username" #Username>
+            <input type="text" required matInput [formControl]="userFormControl" [(ngModel)]="nome" name="username" #Username> 
+            <mat-error *ngIf="userFormControl.hasError('required')">
+              Username è <strong>obbligatorio</strong>
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -44,19 +52,22 @@
 &nbsp;
 <div class="card">
   <div class="drag card-header callout callout-info font-weight-bold">
-    <label>Cambio Password</label>
+    <label *ngIf="!this.isNew">Cambio Password</label>
+    <label *ngIf="this.isNew">Nuova Password</label>
     <div class="card-actions">
-      <button type="button" *ngIf="!this.isPasswordChange" class="btn" (click)="this.isPasswordChange = !this.isPasswordChange"> Abilita cambio Password
+      <button type="button" *ngIf="!this.isPasswordChange && !this.isNew" class="btn"
+        (click)="this.isPasswordChange = !this.isPasswordChange"> Abilita cambio Password
       </button>
-      <button type="button" *ngIf="this.isPasswordChange" class="btn" (click)="this.isPasswordChange = !this.isPasswordChange"> Disabilita cambio Password
+      <button type="button" *ngIf="this.isPasswordChange && !this.isNew" class="btn"
+        (click)="this.isPasswordChange = !this.isPasswordChange"> Disabilita cambio Password
       </button>
     </div>
   </div>
   <div class="card-body" *ngIf="this.isPasswordChange">
     <div class="form-row">
-      <div class="form-group col-md-4">
+      <div class="form-group col-md-4" *ngIf="!this.isNew">
         <div class="input-group">
-          <mat-form-field class="example-full-width" appearance="fill">
+          <mat-form-field class="example-full-width" appearance="fill" >
             <mat-label>Vecchia Password</mat-label>
             <input type="password" [required]="this.isPasswordChange" matInput [(ngModel)]="oldPsw" name="oldPsw"
               #OldPsw>
@@ -67,7 +78,16 @@
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Nuova Password</mat-label>
-            <input type="password" [required]="this.isPasswordChange" matInput [ngModel]="newPsw" name="newPsw" #NewPsw>
+            <input type="password" required matInput [formControl]="pswFormControl"  [(ngModel)]="newPsw" name="newPsw" (input)="onPswChange()"> 
+            <mat-error *ngIf="pswFormControl.hasError('notMatch')">
+              Le due nuove password non sono uguali
+            </mat-error>
+            <mat-error *ngIf="pswFormControl.hasError('required')">
+              Nuova password è <strong>obbligatoria</strong>
+            </mat-error>
+            <mat-error *ngIf="pswFormControl.hasError('minLength')">
+              La nuova password deve essere almeno 8 caratteri
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -76,8 +96,16 @@
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Ripeti Password</mat-label>
-            <input type="password" [required]="this.isPasswordChange" matInput [ngModel]="repeatNewPsw"
-              name="repeatNewPsw" #RepeatNewPsw>
+            <input type="password" required matInput [formControl]="pswFormControl"  [(ngModel)]="repeatNewPsw" name="repeatPsw" (input)="onPswChange()"> 
+            <mat-error *ngIf="pswFormControl.hasError('notMatch')">
+              Le due nuove password non sono uguali
+            </mat-error>
+            <mat-error *ngIf="pswFormControl.hasError('required')">
+              Nuova password è <strong>obbligatoria</strong>
+            </mat-error>
+            <mat-error *ngIf="pswFormControl.hasError('minLength')">
+              La nuova password deve essere almeno 8 caratteri
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -93,7 +121,7 @@
       <button mat-raised-button color="accent" (click)="saveClick()">Salva</button>
     </div>
     <div style="float: left;">
-        <button mat-raised-button color="primary" (click)="backClick()">Indietro</button>
+      <button mat-raised-button color="primary" (click)="backClick()">Indietro</button>
     </div>
   </div>
 </div>

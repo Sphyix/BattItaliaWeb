@@ -50,7 +50,11 @@ export class ProfileComponent implements OnInit {
     console.log(rowData);
   }
 
-  showDetail(rowData: any): void {
+  showDetail(rowData?: any): void {
     this.router.navigate(['/profile/edit', rowData._id ]);
+  }
+
+  addNew(){
+    this.router.navigate(['/profile/edit']);
   }
 }

@@ -6,7 +6,8 @@
     "start": "ng serve --port 9091",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "android": "ng build; npx cap copy android; npx cap sync android; npx cap open android"
   },
   "private": true,
   "dependencies": {
