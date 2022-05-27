@@ -15,30 +15,34 @@ import { MyWorkEditComponent } from './my-work/components/my-work-edit/my-work-e
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, runGuardsAndResolvers: 'always' },
   { path: 'register', component: RegisterComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'mod', component: BoardModeratorComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: BoardAdminComponent, canActivate: [AuthGuard] },
+  { path: 'mywork', component: MyWorkComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
   //details
   { path: 'profile/edit/:id', component: ProfileEditComponent, canActivate: [AuthGuard] },
   { path: 'profile/edit', component: ProfileEditComponent, canActivate: [AuthGuard] },
+  { path: 'mywork/:id', component: MyWorkEditComponent, canActivate: [AuthGuard] },
 
+
+  
   //user
-  {
-    path: 'user', component: BoardUserComponent, canActivate: [AuthGuard],
-    children: [
-      { path: 'mywork', component: MyWorkComponent },
-      { path: 'mywork/:id', component: MyWorkEditComponent },
-    ]
-  },
+  // {
+  //   path: 'user', component: BoardUserComponent, canActivate: [AuthGuard],
+  //   children: [
+  //     { path: '', component:  },
+  //     { path: , component:  },
+  //   ]
+  // },
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

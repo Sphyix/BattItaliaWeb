@@ -13,20 +13,16 @@ import { ProfileEditComponent } from './profile-edit/profile-edit.component';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  currentUser: any;
+  
   tblData: UserSelectResults[];
-
-  public context = this;
-
   @ViewChild('actionEdit', { static: true }) actionEdit: TemplateRef<any>;
-
   public configuration: Config = { ...DefaultConfig };
   public columns: Columns[];
+
   constructor(private token: TokenStorageService, private service: UsersService, private route: ActivatedRoute,
     private router: Router ) { }
 
   ngOnInit(): void {
-    this.currentUser = this.token.getUser();
     this.columns = [
       { key: '_nome', title: 'Username' },
       { key: '_email', title: 'Email' },

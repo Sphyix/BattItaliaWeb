@@ -30,4 +30,8 @@ export class UsersService {
   updateUser(user: UserSelectResults): Observable<any>{
     return this.http.patch(API_URL, user, httpOptions);
   }
+
+  getPagePermissions(){
+    return this.http.get(webApiUrl + '/pagepermissions', httpOptions)
+  }
 }

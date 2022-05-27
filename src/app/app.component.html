@@ -1,16 +1,52 @@
 <div id="app">
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
+
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button mat-icon-button>
+        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+      </button>
+      <a mat-button [routerLink]="'/home'">
+        <h1>CRM</h1>
+      </a>
+      <span class="menu-spacer"></span>
+      <div class="flexExpand">
+          <a mat-button [routerLink]="'/profile'" *ngIf="checkPermission('profile')"> Utenti </a>
+          
+      </div>
+      <div>
+        <a mat-button [routerLink]="'/login'" *ngIf="!isLoggedIn"> Login </a>
+        <a mat-button (click)="logout()" *ngIf="isLoggedIn">Logout</a>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav>
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="'/mywork'" *ngIf="checkPermission('mywork')"> I miei Lavori </a>
+        <a mat-list-item [routerLink]="'/'" *ngIf="false"> Aggiungi </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div style="height: 88vh;">
+
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+  <!-- <nav class="navbar navbar-expand navbar-dark bg-dark">
     <a href="#" class="navbar-brand">bezKoder</a>
     <ul class="navbar-nav mr-auto" routerLinkActive="active">
       <li class="nav-item">
         <a href="/home" class="nav-link" routerLink="home">Home </a>
       </li>
-      <!-- <li class="nav-item" *ngIf="showAdminBoard">
+       <li class="nav-item" *ngIf="showAdminBoard">
         <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
       </li>
       <li class="nav-item" *ngIf="showModeratorBoard">
         <a href="/mod" class="nav-link" routerLink="mod">Moderator Board</a>
-      </li> -->
+      </li> 
       <li class="nav-item">
         <a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user">User</a>
       </li>
@@ -30,11 +66,8 @@
         <a href class="nav-link" (click)="logout()">LogOut</a>
       </li>
     </ul>
-  </nav>
+  </nav> -->
 
-  <div class="container">
-    <router-outlet></router-outlet>
-  </div>
 
-  
+
 </div>

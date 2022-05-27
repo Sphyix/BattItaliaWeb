@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
+import { MatSidenav } from '@angular/material/sidenav';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../_services/user.service';
 import { EventBusService } from '../_shared/event-bus.service';
-import { EventData } from '../_shared/event.class';
 
 @Component({
   selector: 'app-board-user',
@@ -9,11 +11,15 @@ import { EventData } from '../_shared/event.class';
   styleUrls: ['./board-user.component.css']
 })
 export class BoardUserComponent implements OnInit {
-  content?: string;
+  
+  @ViewChild(MatSidenav)
+  sidenav!: MatSidenav;
 
-  constructor(private userService: UserService, private eventBusService: EventBusService) { }
+  constructor(private userService: UserService, private eventBusService: EventBusService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.sidenav.mode = 'side';
+        this.sidenav.open();
     // this.userService.getUserBoard().subscribe(
     //   data => {
     //     this.content = data;
@@ -26,4 +32,5 @@ export class BoardUserComponent implements OnInit {
     //   }
     // );
   }
+
 }
