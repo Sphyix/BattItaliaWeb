@@ -4,6 +4,6 @@ export class Enum {
         this.value = value
     }
     
-    text: String;
-    value: Number;
+    text: string;
+    value: number;
 }
