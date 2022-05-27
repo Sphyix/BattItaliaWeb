@@ -4,10 +4,14 @@
 <div class="columns">
   <div class="btn btn-primary" (click)="addNew()" >Aggiungi nuovo Utente</div>
   <div class="column col-12">
-    <ngx-table [configuration]="configuration" [data]="tblData" [columns]="columns"> </ngx-table>
+    <ngx-table [configuration]="configuration" [data]="tblData" [columns]="columns" > </ngx-table>
   </div>
 </div>
 <ng-template #actionEdit let-row let-rowIndex="rowIndex">
   <div class="btn btn-primary" (click)="edit(rowIndex)">Modifica</div>
+</ng-template>
+
+<ng-template #difficolta let-row let-rowIndex="rowIndex">
+  <span class="font-small">{{ row.permissionText }}</span>
 </ng-template>
 

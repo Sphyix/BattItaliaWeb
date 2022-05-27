@@ -57,14 +57,7 @@ export class ProfileEditComponent implements OnInit {
   }
 
   loadPerms() {
-    this.enumService.getPermissions().subscribe(data => {
-      var res = JSON.parse(data);
-      console.log(res);
-      res.forEach((element: { _permission: string; _id: number; }) => {
-        var f = new Enum(element._permission, element._id);
-        this.permissions.push(f);
-      });
-    })
+    this.permissions = this.enumService.permissions;
   }
 
   backClick() {

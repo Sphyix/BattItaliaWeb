@@ -10,3 +10,11 @@
   <div class="btn btn-primary" (click)="edit(rowIndex)">Modifica</div>
 </ng-template>
 
+<ng-template #difficoltaCircle let-row let-rowIndex="rowIndex">
+  <div class="circle" [style.color]="getDifficultyColor(row._difficolta)"></div>
+</ng-template>
+
+<ng-template #difettoFisso let-row let-rowIndex="rowIndex">
+  <span class="font-small">{{ row._difettofisso == 1 ? 'Fisso' : 'No' }}</span>
+</ng-template>
+

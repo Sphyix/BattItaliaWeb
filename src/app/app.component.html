@@ -23,8 +23,8 @@
   <mat-sidenav-container>
     <mat-sidenav #sidenav>
       <mat-nav-list>
-        <a mat-list-item [routerLink]="'/mywork'" *ngIf="checkPermission('mywork')"> I miei Lavori </a>
-        <a mat-list-item [routerLink]="'/'" *ngIf="false"> Aggiungi </a>
+        <a mat-list-item (click)="sidenav.toggle()" [routerLink]="'/mywork'" *ngIf="checkPermission('mywork')"> I miei Lavori </a>
+        <a mat-list-item (click)="sidenav.toggle()" [routerLink]="'/'" *ngIf="false"> Aggiungi </a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>

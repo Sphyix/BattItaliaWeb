@@ -26,7 +26,7 @@ const routes: Routes = [
   //details
   { path: 'profile/edit/:id', component: ProfileEditComponent, canActivate: [AuthGuard] },
   { path: 'profile/edit', component: ProfileEditComponent, canActivate: [AuthGuard] },
-  { path: 'mywork/:id', component: MyWorkEditComponent, canActivate: [AuthGuard] },
+  { path: 'mywork/edit/:id', component: MyWorkEditComponent, canActivate: [AuthGuard] },
 
 
   

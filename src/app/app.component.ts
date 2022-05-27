@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { EnumService } from './_services/enum.service';
 import { TokenStorageService } from './_services/token-storage.service';
 import { UsersService } from './_services/users.service';
 import { EventBusService } from './_shared/event-bus.service';
@@ -21,12 +22,15 @@ export class AppComponent implements OnInit, OnDestroy {
 
   eventBusSub?: Subscription;
 
-  constructor(private tokenStorageService: TokenStorageService, private eventBusService: EventBusService, private router: Router, private userService: UsersService) { }
+  constructor(private tokenStorageService: TokenStorageService, private eventBusService: EventBusService, private router: Router, private userService: UsersService,
+    private enumService: EnumService) { }
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {
+      this.enumService.loadEnums();
+
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
 
@@ -64,8 +68,8 @@ export class AppComponent implements OnInit, OnDestroy {
   checkPermission(route: string): boolean {
     var res = false;
     if (this.pagePerms?.length > 0) {
-      this.pagePerms.forEach((element: { _permission: number; _pageurl: string; }) => {
-        if (this.roles? this.roles >= element._permission : false) {
+      this.pagePerms.forEach((element: { _menu_permission: number; _pageurl: string; }) => {
+        if (this.roles? this.roles >= element._menu_permission : false) {
           if (route == element._pageurl) {
             res = true;
           }
