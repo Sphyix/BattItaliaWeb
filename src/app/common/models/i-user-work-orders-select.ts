@@ -3,11 +3,7 @@
  * Any changes made to this file can be lost when this file is regenerated.
  */
 
-export interface IWorkOrderSelect {
-    workOrderId: number;
+export interface IUserWorkOrdersSelect {
     userId: number;
-    stato: number;
-    difficolta: number;
-    modello: string;
     executionMessages: string;
 }

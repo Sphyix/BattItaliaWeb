@@ -3,11 +3,9 @@
  * Any changes made to this file can be lost when this file is regenerated.
  */
 
-export interface IWorkOrderSelect {
-    workOrderId: number;
+import { IUserWorkOrdersSelect } from "./i-user-work-orders-select";
+
+export class UserWorkOrdersSelect implements IUserWorkOrdersSelect {
     userId: number;
-    stato: number;
-    difficolta: number;
-    modello: string;
     executionMessages: string;
 }
