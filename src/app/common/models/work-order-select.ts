@@ -7,7 +7,6 @@ import { IWorkOrderSelect } from "./i-work-order-select";
 
 export class WorkOrderSelect implements IWorkOrderSelect {
     workOrderId: number;
-    userId: number;
     stato: number;
     difficolta: number;
     modello: string;

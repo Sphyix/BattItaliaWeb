@@ -5,7 +5,6 @@
 
 export interface IWorkOrderSelect {
     workOrderId: number;
-    userId: number;
     stato: number;
     difficolta: number;
     modello: string;

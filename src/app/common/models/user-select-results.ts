@@ -9,5 +9,4 @@ export class UserSelectResults {
     email: string;
     passwd: string;
     permission: number;
-    permissionText: string;
 }
