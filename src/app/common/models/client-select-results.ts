@@ -14,4 +14,5 @@ export class ClientSelectResults {
     regione: string;
     via: string;
     civico: string;
+    residenza: string;
 }

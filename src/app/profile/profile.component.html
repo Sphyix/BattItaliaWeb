@@ -7,6 +7,7 @@
     <ngx-table [configuration]="configuration" [data]="tblData" [columns]="columns" > </ngx-table>
   </div>
 </div>
+
 <ng-template #actionEdit let-row let-rowIndex="rowIndex">
   <div class="btn btn-primary" (click)="edit(rowIndex)">Modifica</div>
 </ng-template>

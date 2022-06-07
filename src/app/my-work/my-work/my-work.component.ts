@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Columns, Config, DefaultConfig } from 'ngx-easy-table';
-import { WorkOrderSelect } from 'src/app/common/models/work-order-select';
+import { WorkOrderSelectResults } from 'src/app/common/models/work-order-select-results';
 import { WorkOrderService } from 'src/app/_services/work-order.service';
 
 
@@ -13,7 +13,7 @@ import { WorkOrderService } from 'src/app/_services/work-order.service';
 })
 export class MyWorkComponent implements OnInit {
 
-  tblData: WorkOrderSelect[];
+  tblData: WorkOrderSelectResults[];
   @ViewChild('actionEdit', { static: true }) actionEdit: TemplateRef<any>;
   @ViewChild('actionAssign', { static: true }) actionAssign: TemplateRef<any>;
   @ViewChild('difficoltaCircle', { static: true }) difficoltaCircle: TemplateRef<any>;
