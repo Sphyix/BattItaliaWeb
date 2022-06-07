@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { EnumService } from 'src/app/_services/enum.service';
+import { WorkOrderService } from 'src/app/_services/work-order.service';
 
 @Component({
   selector: 'app-my-work-edit',
@@ -7,9 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyWorkEditComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service: WorkOrderService, private route: ActivatedRoute, private enumService: EnumService) { }
+
+  workOrderData: any;
 
   ngOnInit(): void {
+    var id = this.route.snapshot.params.id;
+    if (id != undefined) {
+      this.loadData(id);
+    }
+  }
+
+
+  loadData(id: number) {
+    this.service.getWorkOrder(id).subscribe((data) => {
+      console.log(data);
+      this.workOrderData = data[0];
+      this.workOrderData.tipoOggettoText = this.enumService.getTipoOggetto(this.workOrderData._tipoOggetto);
+      this.workOrderData.statoText = this.enumService.getTipoOggetto(this.workOrderData._stato);
+    });
   }
 
 }

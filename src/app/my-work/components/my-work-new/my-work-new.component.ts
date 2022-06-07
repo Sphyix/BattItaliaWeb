@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { WorkOrderSelect } from 'src/app/common/models/work-order-select';
 import { WorkOrderService } from 'src/app/_services/work-order.service';
 
 @Component({
@@ -12,14 +13,19 @@ export class MyWorkNewComponent implements OnInit {
 
   step: number = 0;
 
+  workOrder = new WorkOrderSelect();
+
   nome: string;
   cognome: string;
   telefono: string;
   mail: string;
   riferimento: string;
+  tipoOggetto: string;
 
 
-  userFormControl = new FormControl('', [Validators.required]);
+
+
+  requiredFormControl = new FormControl('', [Validators.required]);
   emailFormControl = new FormControl('', [Validators.email]);
   telefonoFormControl = new FormControl('', [Validators.required, Validators.pattern('([0-9+ ]{8,17})')]);
 

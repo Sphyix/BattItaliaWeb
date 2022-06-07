@@ -60,7 +60,7 @@ export class MyWorkComponent implements OnInit {
   }
 
   showDetail(rowData?: any): void {
-    this.router.navigate(['/mywork/edit', rowData._id ]);
+    this.router.navigate(['/mywork/edit', rowData._workOrders_id ]);
   }
 
   getDifficultyColor(difficolta: number){

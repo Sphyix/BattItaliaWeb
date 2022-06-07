@@ -10,26 +10,24 @@
             <div class="input-group">
               <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Nome</mat-label>
-                <input type="text" required matInput [formControl]="userFormControl" [(ngModel)]="nome" name="nome" #Nome> 
-                <mat-error *ngIf="userFormControl.hasError('required')">
+                <input type="text" required matInput [formControl]="requiredFormControl" [(ngModel)]="nome" name="nome" #Nome> 
+                <mat-error *ngIf="requiredFormControl.hasError('required')">
                   Nome è <strong>obbligatorio</strong>
                 </mat-error>
               </mat-form-field>
             </div>
           </div>
-
           <div class="form-group col-md-4">
             <div class="input-group">
               <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Cognome</mat-label>
-                <input type="text" required matInput [formControl]="userFormControl" [(ngModel)]="cognome" name="Cognome" #Nome> 
-                <mat-error *ngIf="userFormControl.hasError('required')">
+                <input type="text" required matInput [formControl]="requiredFormControl" [(ngModel)]="cognome" name="Cognome" #Nome> 
+                <mat-error *ngIf="requiredFormControl.hasError('required')">
                     Cognome è <strong>obbligatorio</strong>
                 </mat-error>
               </mat-form-field>
             </div>
           </div>
-
           <div class="form-group col-md-4">
             <div class="input-group">
               <mat-form-field class="example-full-width" appearance="fill">
@@ -41,8 +39,6 @@
               </mat-form-field>
             </div>
           </div>
-
-
         <div class="form-group col-md-4">
           <div class="input-group">
             <mat-form-field class="example-full-width" appearance="fill">
@@ -63,8 +59,71 @@
               </mat-form-field>
             </div>
           </div>
+      </div>
+    </div>
+  </div>
 
+  <div class="card" *ngIf="getCurrentStep(1)">
+    <div class="drag card-header callout callout-info font-weight-bold">
+      <label>Informazioni base</label>
+      <div class="card-actions">
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group col-md-4">
+            <div class="input-group">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Tipo Oggetto</mat-label>
+                <input type="text" required matInput [formControl]="requiredFormControl" [(ngModel)]="tipoOggetto" name="tipoOggetto" #TipoOggetto> 
+                <mat-error *ngIf="requiredFormControl.hasError('required')">
+                  Tipo Oggetto è <strong>obbligatorio</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <div class="input-group">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Cognome</mat-label>
+                <input type="text" required matInput [formControl]="requiredFormControl" [(ngModel)]="cognome" name="Cognome" #Nome> 
+                <mat-error *ngIf="requiredFormControl.hasError('required')">
+                    Cognome è <strong>obbligatorio</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <div class="input-group">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Telefono</mat-label>
+                <input type="text" required matInput [formControl]="telefonoFormControl" [(ngModel)]="telefono" name="Telefono" #Telefono> 
+                <mat-error *ngIf="telefonoFormControl.hasError('required')">
+                    Telefono non valido
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        <div class="form-group col-md-4">
+          <div class="input-group">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Email</mat-label>
+              <input type="email" required="false" matInput [formControl]="emailFormControl" [(ngModel)]="this.mail" name="email" placeholder="Ex. pat@example.com"> 
+              <mat-error *ngIf="emailFormControl.hasError('email')">
+                Email non valida
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
 
+        <div class="form-group col-md-4">
+            <div class="input-group">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Riferimento</mat-label>
+                <input type="text" required="false" matInput [(ngModel)]="riferimento" name="Riferimento" #Riferimento> 
+              </mat-form-field>
+            </div>
+          </div>
       </div>
     </div>
   </div>

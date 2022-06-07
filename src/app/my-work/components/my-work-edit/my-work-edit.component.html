@@ -1,1 +1,123 @@
-<p>my-work-edit works!</p>
+&nbsp;
+<div class="card">
+    <div class="drag card-header callout callout-info font-weight-bold">
+        <label>Dati Work Order</label>
+        <div class="card-actions">
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="form-row"  *ngIf="this.workOrderData != undefined">
+            <div class="form-group col-md-4">
+                <div class="input-group">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Modello</mat-label>
+                        <input type="text" required="false" disabled matInput [(ngModel)]="this.workOrderData._modello"
+                            name="modello">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <div class="input-group">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Difetto</mat-label>
+                        <input type="text" required="false" matInput [(ngModel)]="this.workOrderData._difetto"
+                            name="difetto">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <div class="input-group">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Note</mat-label>
+                        <textarea type="text" required="false" matInput [(ngModel)]="this.workOrderData._note"
+                            name="note"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <div class="input-group">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Tipo Oggetto</mat-label>
+                        <input type="text" required="false" disabled matInput [(ngModel)]="this.workOrderData.tipoOggettoText"
+                            name="tipoOggettoText">
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- <div class="form-group col-md-4">
+          <div class="input-group">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Username</mat-label>
+              <input type="text" required matInput [formControl]="userFormControl" [(ngModel)]="nome" name="username" #Username> 
+              <mat-error *ngIf="userFormControl.hasError('required')">
+                Username è <strong>obbligatorio</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-group col-md-4">
+          <div class="input-group">
+            <mat-form-field appearance="fill">
+              <mat-label>Permessi</mat-label>
+              <mat-select [(ngModel)]="permission" required [ngModelOptions]="{standalone: true}" name="permission"
+                #Permission>
+                <mat-option *ngFor="let perm of permissions" [value]="perm.value">
+                  {{perm.text}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div> -->
+        </div>
+    </div>
+</div>
+
+
+<div class="card">
+    <div class="drag card-header callout callout-info font-weight-bold">
+        <label>Cliente</label>
+        <div class="card-actions">
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="form-row">
+            <!-- <div class="form-group col-md-4">
+        <div class="input-group">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Email</mat-label>
+            <input type="email" required matInput [formControl]="emailFormControl" [(ngModel)]="this.email" name="email" placeholder="Ex. pat@example.com"> 
+            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div> -->
+            <!-- <div class="form-group col-md-4">
+        <div class="input-group">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Username</mat-label>
+            <input type="text" required matInput [formControl]="userFormControl" [(ngModel)]="nome" name="username" #Username> 
+            <mat-error *ngIf="userFormControl.hasError('required')">
+              Username è <strong>obbligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div> -->
+            <!-- <div class="form-group col-md-4">
+        <div class="input-group">
+          <mat-form-field appearance="fill">
+            <mat-label>Permessi</mat-label>
+            <mat-select [(ngModel)]="permission" required [ngModelOptions]="{standalone: true}" name="permission"
+              #Permission>
+              <mat-option *ngFor="let perm of permissions" [value]="perm.value">
+                {{perm.text}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div> -->
+        </div>
+    </div>
+</div>
