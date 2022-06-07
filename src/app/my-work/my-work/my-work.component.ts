@@ -15,6 +15,7 @@ export class MyWorkComponent implements OnInit {
 
   tblData: WorkOrderSelect[];
   @ViewChild('actionEdit', { static: true }) actionEdit: TemplateRef<any>;
+  @ViewChild('actionAssign', { static: true }) actionAssign: TemplateRef<any>;
   @ViewChild('difficoltaCircle', { static: true }) difficoltaCircle: TemplateRef<any>;
   @ViewChild('difettoFisso', { static: true }) difettoFisso: TemplateRef<any>;
   
@@ -31,7 +32,8 @@ export class MyWorkComponent implements OnInit {
       { key: 'difficolta', title: 'Difficoltà', cellTemplate: this.difficoltaCircle },
       { key: 'difettofisso', title: 'Difetto Fisso', cellTemplate: this.difettoFisso },
       { key: '_nome', title: 'Operatore' },
-      { key: 'action', title: 'Actions', cellTemplate: this.actionEdit },
+      { key: 'action', title: 'Azioni', cellTemplate: this.actionEdit },
+      { key: 'actionAssign', title: 'Azioni', cellTemplate: this.actionAssign },
       
     ];
     this.getData();
@@ -41,14 +43,20 @@ export class MyWorkComponent implements OnInit {
   getData(): void {
     this.service.getWorkOrders().subscribe((data: any) => {
       this.tblData = JSON.parse(data);
-      console.log(this.tblData);
    })
+   }
+
+   assign(rowIndex: number) {
+
+   }
+
+   isRowAssigned(rowIndex: number){
+     
    }
 
    edit(rowIndex: number): void {
     var rowData = this.tblData.filter((_v, k) => k == rowIndex)[0];
     this.showDetail(rowData);
-    console.log(rowData);
   }
 
   showDetail(rowData?: any): void {

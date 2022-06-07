@@ -17,7 +17,6 @@ export class ProfileComponent implements OnInit {
   
   tblData: UserSelectResults[];
   @ViewChild('actionEdit', { static: true }) actionEdit: TemplateRef<any>;
-  @ViewChild('difficoltaRow', { static: true }) difficoltaRow: TemplateRef<any>;
   public configuration: Config = { ...DefaultConfig };
   public columns: Columns[];
 
@@ -28,8 +27,8 @@ export class ProfileComponent implements OnInit {
     this.columns = [
       { key: '_nome', title: 'Username' },
       { key: '_email', title: 'Email' },
-      { key: 'permission', title: 'Ruolo', cellTemplate: this.difficoltaRow },
-      { key: 'action', title: 'Actions', cellTemplate: this.actionEdit },
+      { key: 'permissionText', title: 'Ruolo' },
+      { key: 'action', title: 'Azioni', cellTemplate: this.actionEdit },
     ];
     this.getData();
     this.configuration = { ...DefaultConfig };
@@ -38,12 +37,13 @@ export class ProfileComponent implements OnInit {
 
   getData(): void {
    this.service.getUsers().subscribe((data: any) => {
-     this.tblData = JSON.parse(data);
-     this.tblData.forEach(element => {
-       console.log(element.permission);
-       element.permissionText = this.enumService.getPermission(element.permission);
-       console.log(this.tblData);
+     var parsedData = JSON.parse(data);
+     parsedData.forEach((element: { permissionText: string; _permission: number; }) => {
+       element.permissionText = this.enumService.getPermission(element._permission);
      });
+     console.log(parsedData);
+     this.tblData = parsedData;
+     console.log(this.tblData);
   })
   }
 

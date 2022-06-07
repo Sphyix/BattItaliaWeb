@@ -6,6 +6,14 @@
     <ngx-table [configuration]="configuration" [data]="tblData" [columns]="columns"> </ngx-table>
   </div>
 </div>
+<ng-template #actionEdit let-row let-rowIndex="rowIndex">
+  <div class="btn btn-primary" *ngIf="row._nome != undefined" (click)="edit(rowIndex)">Modifica</div>
+  <div class="btn btn-primary" *ngIf="row._nome == undefined" (click)="assign(rowIndex)">Assegna a me</div>
+</ng-template>
+
+<ng-template #actionAssign let-row let-rowIndex="rowIndex">
+  
+</ng-template>
 
 <ng-template #difficoltaCircle let-row let-rowIndex="rowIndex">
   <div class="circle" [style.color]="getDifficultyColor(row._difficolta)"></div>
