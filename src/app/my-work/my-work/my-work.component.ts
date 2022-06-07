@@ -65,4 +65,8 @@ export class MyWorkComponent implements OnInit {
     return 'green';
   }
 
+  addNew() {
+    this.router.navigate(['/mywork/new']);
+  }
+
 }

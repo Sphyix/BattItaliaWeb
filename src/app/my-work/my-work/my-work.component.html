@@ -1,14 +1,11 @@
 &nbsp;
 
-
 <div class="columns">
+  <div class="btn btn-primary" (click)="addNew()" > Nuovo Lavoro</div>
   <div class="column col-12">
     <ngx-table [configuration]="configuration" [data]="tblData" [columns]="columns"> </ngx-table>
   </div>
 </div>
-<ng-template #actionEdit let-row let-rowIndex="rowIndex">
-  <div class="btn btn-primary" (click)="edit(rowIndex)">Modifica</div>
-</ng-template>
 
 <ng-template #difficoltaCircle let-row let-rowIndex="rowIndex">
   <div class="circle" [style.color]="getDifficultyColor(row._difficolta)"></div>
@@ -16,5 +13,9 @@
 
 <ng-template #difettoFisso let-row let-rowIndex="rowIndex">
   <span class="font-small">{{ row._difettofisso == 1 ? 'Fisso' : 'No' }}</span>
+</ng-template>
+
+<ng-template #actionEdit let-row let-rowIndex="rowIndex">
+  <div class="btn btn-primary" (click)="edit(rowIndex)">Modifica</div>
 </ng-template>
 

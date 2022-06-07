@@ -12,6 +12,7 @@ import { AuthGuardService as AuthGuard } from './_services/auth.guard';
 import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
 import { MyWorkComponent } from './my-work/my-work/my-work.component';
 import { MyWorkEditComponent } from './my-work/components/my-work-edit/my-work-edit.component';
+import { MyWorkNewComponent } from './my-work/components/my-work-new/my-work-new.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'profile/edit/:id', component: ProfileEditComponent, canActivate: [AuthGuard] },
   { path: 'profile/edit', component: ProfileEditComponent, canActivate: [AuthGuard] },
   { path: 'mywork/edit/:id', component: MyWorkEditComponent, canActivate: [AuthGuard] },
+  { path: 'mywork/new', component: MyWorkNewComponent, canActivate: [AuthGuard] },
 
 
   

@@ -22,6 +22,7 @@ import { MaterialModule } from './material/material.module';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { MyWorkComponent } from './my-work/my-work/my-work.component';
 import { MyWorkEditComponent } from './my-work/components/my-work-edit/my-work-edit.component';
+import { MyWorkNewComponent } from './my-work/components/my-work-new/my-work-new.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { MyWorkEditComponent } from './my-work/components/my-work-edit/my-work-e
     ProfileEditComponent,
     MyWorkComponent,
     MyWorkEditComponent,
+    MyWorkNewComponent,
   ],
   imports: [
     BrowserModule,
