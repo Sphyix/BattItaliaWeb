@@ -15,7 +15,6 @@ export class MyWorkComponent implements OnInit {
 
   tblData: WorkOrderSelectResults[];
   @ViewChild('actionEdit', { static: true }) actionEdit: TemplateRef<any>;
-  @ViewChild('actionAssign', { static: true }) actionAssign: TemplateRef<any>;
   @ViewChild('difficoltaCircle', { static: true }) difficoltaCircle: TemplateRef<any>;
   @ViewChild('difettoFisso', { static: true }) difettoFisso: TemplateRef<any>;
   
@@ -33,7 +32,6 @@ export class MyWorkComponent implements OnInit {
       { key: 'difettofisso', title: 'Difetto Fisso', cellTemplate: this.difettoFisso },
       { key: '_nome', title: 'Operatore' },
       { key: 'action', title: 'Azioni', cellTemplate: this.actionEdit },
-      { key: 'actionAssign', title: 'Azioni', cellTemplate: this.actionAssign },
       
     ];
     this.getData();

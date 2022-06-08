@@ -2,25 +2,24 @@
   <div class="drag card-header callout callout-info font-weight-bold">
     <label>Informazioni cliente</label>
     <div class="card-actions">
-      <button type="button" *ngIf="!this.isNewClient" class="btn"
-        (click)="this.isNewClient = !this.isNewClient"> Cambia a Nuovo Cliente
+      <button type="button" *ngIf="!this.isNewClient" class="btn" (click)="this.isNewClient = !this.isNewClient"> Cambia
+        a Nuovo Cliente
       </button>
-      <button type="button" *ngIf="this.isNewClient" class="btn"
-        (click)="this.isNewClient = !this.isNewClient"> Cambia a Cerca Cliente Esistente
+      <button type="button" *ngIf="this.isNewClient" class="btn" (click)="this.isNewClient = !this.isNewClient"> Cambia
+        a Cerca Cliente Esistente
       </button>
     </div>
   </div>
   <div class="card-body" *ngIf="!isNewClient">
     &nbsp;
-<div class="columns">
-  <div class="column col-12">
-    <ngx-table [configuration]="configuration" [data]="tblData" [columns]="columns" > </ngx-table>
-  </div>
-</div>
+    <div class="columns">
+      <div class="column col-12">
+        <ngx-table [configuration]="configuration" [data]="tblData" [columns]="columns"> </ngx-table>
 
-<ng-template #actionEdit let-row let-rowIndex="rowIndex">
-  <div class="btn btn-primary" (click)="selectClient(rowIndex)">Seleziona</div>
-</ng-template>
+      </div>
+    </div>
+
+
   </div>
 
 
@@ -74,6 +73,57 @@
           </mat-form-field>
         </div>
       </div>
+
+      <div class="form-group col-md-4">
+        <div class="input-group">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Comune</mat-label>
+            <input type="text" required="false" matInput [(ngModel)]="client.comune"
+              name="comune" #Comune>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-group col-md-4">
+        <div class="input-group">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Provincia</mat-label>
+            <input type="text" required="false" matInput [(ngModel)]="client.provincia"
+              name="provincia" #Provincia>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-group col-md-4">
+        <div class="input-group">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Regione</mat-label>
+            <input type="text" required="false" matInput [(ngModel)]="client.regione"
+              name="regione" #Regione>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-group col-md-4">
+        <div class="input-group">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Via</mat-label>
+            <input type="text" required="false" matInput [(ngModel)]="client.via"
+              name="via" #Via>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-group col-md-4">
+        <div class="input-group">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Civico</mat-label>
+            <input type="text" required="false" matInput [(ngModel)]="client.civico"
+              name="civico" #Civico>
+          </mat-form-field>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -103,8 +153,12 @@
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Tipo Oggetto</mat-label>
-            <input type="text" required matInput [formControl]="requiredFormControl" [(ngModel)]="tipoOggetto"
-              name="tipoOggetto" #TipoOggetto>
+            <mat-select [(ngModel)]="workOrder.tipoOggetto" required [ngModelOptions]="{standalone: true}" name="tipoOggetto"
+              #TipoOggetto>
+              <mat-option *ngFor="let perm of this.tipoOggetti" [value]="perm.value">
+                {{perm.text}}
+              </mat-option>
+            </mat-select>
             <mat-error *ngIf="requiredFormControl.hasError('required')">
               Tipo Oggetto è <strong>obbligatorio</strong>
             </mat-error>
@@ -114,11 +168,11 @@
       <div class="form-group col-md-4">
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Cognome</mat-label>
-            <input type="text" required matInput [formControl]="requiredFormControl" [(ngModel)]="cognome"
-              name="Cognome" #Nome>
+            <mat-label>Modello</mat-label>
+            <input type="text" required matInput [formControl]="requiredFormControl" [(ngModel)]="workOrder.modello"
+              name="modello" #Modello>
             <mat-error *ngIf="requiredFormControl.hasError('required')">
-              Cognome è <strong>obbligatorio</strong>
+              Modello è <strong>obbligatorio</strong>
             </mat-error>
           </mat-form-field>
         </div>
@@ -126,11 +180,15 @@
       <div class="form-group col-md-4">
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Telefono</mat-label>
-            <input type="text" required matInput [formControl]="telefonoFormControl" [(ngModel)]="telefono"
-              name="Telefono" #Telefono>
-            <mat-error *ngIf="telefonoFormControl.hasError('required')">
-              Telefono non valido
+            <mat-label>Difficoltà</mat-label>
+            <mat-select [(ngModel)]="workOrder.difficolta" required [ngModelOptions]="{standalone: true}" name="difficolta"
+              #Difficolta>
+              <mat-option *ngFor="let perm of this.difficolta" [value]="perm.value">
+                {{perm.text}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="requiredFormControl.hasError('required')">
+              Difficoltà è <strong>obbligatoria</strong>
             </mat-error>
           </mat-form-field>
         </div>
@@ -138,12 +196,8 @@
       <div class="form-group col-md-4">
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Email</mat-label>
-            <input type="email" required="false" matInput [formControl]="emailFormControl" [(ngModel)]="this.mail"
-              name="email" placeholder="Ex. pat@example.com">
-            <mat-error *ngIf="emailFormControl.hasError('email')">
-              Email non valida
-            </mat-error>
+            <mat-label>Accessori aggiuntivi</mat-label>
+            <input type="text" required="false" matInput [(ngModel)]="workOrder.accessori" name="accessori" #Accessori>
           </mat-form-field>
         </div>
       </div>
@@ -151,8 +205,21 @@
       <div class="form-group col-md-4">
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Riferimento</mat-label>
-            <input type="text" required="false" matInput [(ngModel)]="riferimento" name="Riferimento" #Riferimento>
+            <mat-label>Difetto da controllare</mat-label>
+            <input type="text" required="false" matInput [(ngModel)]="workOrder.difetto" name="Riferimento" #Riferimento>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-group col-md-4">
+        <div class="input-group">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Difetto fisso/saltuario</mat-label>
+            <mat-select [(ngModel)]="workOrder.difficolta" required [ngModelOptions]="{standalone: true}" name="difficolta"
+            #Difficolta>
+            <mat-option value="1">Fisso</mat-option>
+            <mat-option value="0">Saltuario</mat-option>
+          </mat-select>
           </mat-form-field>
         </div>
       </div>
@@ -186,3 +253,9 @@
       </mat-form-field>
     </div>
   </div> -->
+
+  <ng-template #actionEdit let-row let-rowIndex="rowIndex">
+    <div class="btn btn-primary" (click)="selectClient(rowIndex)">Seleziona</div>
+    &nbsp;
+    <div class="btn btn-primary" (click)="editClient(rowIndex)">Modifica</div>
+  </ng-template>

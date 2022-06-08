@@ -5,6 +5,7 @@ import { Columns, Config, DefaultConfig } from 'ngx-easy-table';
 import { ClientSelectResults } from 'src/app/common/models/client-select-results';
 import { WorkOrderSelectResults } from 'src/app/common/models/work-order-select-results';
 import { ClientService } from 'src/app/_services/client.service';
+import { EnumService } from 'src/app/_services/enum.service';
 import { WorkOrderService } from 'src/app/_services/work-order.service';
 
 @Component({
@@ -21,12 +22,8 @@ export class MyWorkNewComponent implements OnInit {
 
   isNewClient = false;
 
-  nome: string;
-  cognome: string;
-  telefono: string;
-  mail: string;
-  riferimento: string;
-  tipoOggetto: string;
+  public tipoOggetti: any;
+  public difficolta: any;
 
   tblData: any[];
   @ViewChild('actionEdit', { static: true }) actionEdit: TemplateRef<any>;
@@ -38,9 +35,12 @@ export class MyWorkNewComponent implements OnInit {
   emailFormControl = new FormControl('', [Validators.email]);
   telefonoFormControl = new FormControl('', [Validators.required, Validators.pattern('([0-9+ ]{8,17})')]);
 
-  constructor(private service: WorkOrderService, private router: Router, private clientService: ClientService) { }
+  constructor(private service: WorkOrderService, private router: Router, private clientService: ClientService, private enumService: EnumService) { }
 
   ngOnInit(): void {
+
+    this.tipoOggetti = this.enumService.tipoOggetti;
+    this.difficolta = this.enumService.difficolta;
     this.columns = [
       { key: '_nome', title: 'Nome' },
       { key: '_cognome', title: 'Cognome' },
@@ -58,7 +58,7 @@ export class MyWorkNewComponent implements OnInit {
     this.clientService.getClients().subscribe((data) => {
       this.tblData = JSON.parse(data);
       this.tblData.forEach(element => {
-        element.residenza = element._via + element._civico + ", " + element._comune, ", " + element._regione;
+        element.residenza = element._via + ' ' + element._civico + ", " + element._comune;
       });
     })
   }
@@ -91,6 +91,11 @@ export class MyWorkNewComponent implements OnInit {
 
   selectClient(rowIndex: any) {
     this.client = this.tblData[rowIndex];
+    console.log(this.client);
     this.clickNext();
+  }
+
+  editClient(rowIndex: any) {
+    //@@@@@@@@@@@@@ GOTO edit client
   }
 }
