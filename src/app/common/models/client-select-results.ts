@@ -9,12 +9,6 @@ export class ClientSelectResults {
     cognome: string;
     telefono: string;
     mail: string;
-<<<<<<< Updated upstream
-    cap: number;
-    via: string;
-    civico: string;
-    residenza: string;
-=======
     via: string;
     civico: string;
     ccap: number;
@@ -22,5 +16,4 @@ export class ClientSelectResults {
     provincia: string;
     regione: string;
     cap: number;
->>>>>>> Stashed changes
 }
