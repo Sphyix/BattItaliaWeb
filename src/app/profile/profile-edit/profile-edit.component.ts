@@ -6,6 +6,7 @@ import { UserSelectResults } from 'src/app/common/models/user-select-results';
 import { Enum } from 'src/app/common/models/enum';
 import { EnumService } from 'src/app/_services/enum.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-profile-edit',
@@ -17,8 +18,6 @@ export class ProfileEditComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router, private service: UsersService, private enumService: EnumService,
     private snackBar: MatSnackBar) { }
-
-
 
   email: string;
   nome: string;

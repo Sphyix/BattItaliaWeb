@@ -55,7 +55,7 @@
             <mat-label>Regione</mat-label>
             <mat-select [(ngModel)]="regioneSelection" required name="regione" #Regione>
               <mat-option>
-                <ngx-mat-select-search placeholderLabel="Cerca regione" [formControl]="regioneFilterCtrl">
+                <ngx-mat-select-search noEntriesFoundLabel="Nessun risultato" placeholderLabel="Cerca regione" [formControl]="regioneFilterCtrl">
                 </ngx-mat-select-search>
               </mat-option>
               <mat-option *ngFor="let perm of this.regioniView" [value]="perm.value">
@@ -72,7 +72,7 @@
             <mat-label>Provincia</mat-label>
             <mat-select [(ngModel)]="provinciaSelection"  required name="provincia" #Provincia>
               <mat-option>
-                <ngx-mat-select-search placeholderLabel="Cerca provincia" [formControl]="provinciaFilterCtrl">
+                <ngx-mat-select-search noEntriesFoundLabel="Nessun risultato" placeholderLabel="Cerca provincia" [formControl]="provinciaFilterCtrl">
                 </ngx-mat-select-search>
               </mat-option>
               <mat-option *ngFor="let perm of this.provinceView" [value]="perm.value">
@@ -89,7 +89,7 @@
             <mat-label>Comune</mat-label>
             <mat-select [(ngModel)]="client.ccap" required name="comune" #Comune>
               <mat-option>
-                <ngx-mat-select-search placeholderLabel="Cerca comune" [formControl]="comuneFilterCtrl">
+                <ngx-mat-select-search noEntriesFoundLabel="Nessun risultato" placeholderLabel="Cerca comune" [formControl]="comuneFilterCtrl">
                 </ngx-mat-select-search>
               </mat-option>
               <mat-option *ngFor="let perm of this.comuniView" [value]="perm.value">

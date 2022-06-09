@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ClientSelectResults } from 'src/app/common/models/client-select-results';
 import { Enum } from 'src/app/common/models/enum';
+import { ErrorPopupComponent } from 'src/app/common/popups/error-popup/error-popup.component';
 import { ClientService } from 'src/app/_services/client.service';
 import { ComuniService } from 'src/app/_services/comuni.service';
 
@@ -35,7 +37,7 @@ export class ClientEditComponent implements OnInit {
 
   protected _onDestroy = new Subject();
 
-  constructor(private route: ActivatedRoute, private service: ClientService, private comuniService: ComuniService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private service: ClientService, private comuniService: ComuniService, private router: Router, public dialog: MatDialog) { }
 
   nomeFormControl = new FormControl('', [Validators.required]);
   cognomeFormControl = new FormControl('', [Validators.required]);
@@ -150,6 +152,18 @@ export class ClientEditComponent implements OnInit {
   clickUpdate(){
     this.service.updateClient(this.client).subscribe((data) => {
       console.log(data);
+    });
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ErrorPopupComponent, {
+      width: '250px',
+      data: {text: ""},
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      //save?
     });
   }
 

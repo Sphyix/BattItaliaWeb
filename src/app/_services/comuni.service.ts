@@ -9,10 +9,6 @@ const comuni_url = webApiUrl + '/comuni';
 const province_url = webApiUrl + '/province';
 const regioni_url = webApiUrl + '/regioni';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'  })
-};
-
 @Injectable({
   providedIn: 'root'
 })

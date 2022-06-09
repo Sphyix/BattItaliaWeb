@@ -26,6 +26,7 @@ import { MyWorkNewComponent } from './my-work/components/my-work-new/my-work-new
 import { ClientComponent } from './client/client.component';
 import { ClientEditComponent } from './client/client-edit/client-edit.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { ErrorPopupComponent } from './common/popups/error-popup/error-popup.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     MyWorkNewComponent,
     ClientComponent,
     ClientEditComponent,
+    ErrorPopupComponent,
   ],
   imports: [
     BrowserModule,
