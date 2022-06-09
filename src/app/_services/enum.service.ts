@@ -7,10 +7,6 @@ import { webApiUrl } from '../_shared/globals';
 
 const API_URL = webApiUrl + '/enum/';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'  })
-};
-
 @Injectable({
   providedIn: 'root'
 })
@@ -39,8 +35,8 @@ export class EnumService {
   private loadUserPermissions() {
     this.http.get(API_URL + "permissions", { responseType: 'text' }).subscribe(data => {
       var res = JSON.parse(data);
-      res.forEach((element: { _user_permission: string; _user_permission_id: number; }) => {
-        var f = new Enum(element._user_permission, element._user_permission_id);
+      res.forEach((element: { user_permission: string; user_permission_id: number; }) => {
+        var f = new Enum(element.user_permission, element.user_permission_id);
         this.permissions.push(f);
       });
     });
@@ -58,8 +54,8 @@ export class EnumService {
   private loadStato() {
     this.http.get(API_URL + "stato", { responseType: 'text' }).subscribe(data => {
       var res = JSON.parse(data);
-      res.forEach((element: { _stato: string; _workOrder_stato_id: number; }) => {
-        var f = new Enum(element._stato, element._workOrder_stato_id);
+      res.forEach((element: { stato: string; workOrder_stato_id: number; }) => {
+        var f = new Enum(element.stato, element.workOrder_stato_id);
         this.stati.push(f);
       });
     });
@@ -76,8 +72,8 @@ export class EnumService {
   private loadDifficolta() {
     this.http.get(API_URL + "difficolta", { responseType: 'text' }).subscribe(data => {
       var res = JSON.parse(data);
-      res.forEach((element: { _difficolta: string; _workOrder_difficolta_id: number; }) => {
-        var f = new Enum(element._difficolta, element._workOrder_difficolta_id);
+      res.forEach((element: { difficolta: string; workOrder_difficolta_id: number; }) => {
+        var f = new Enum(element.difficolta, element.workOrder_difficolta_id);
         this.difficolta.push(f);
       });
     });
@@ -94,15 +90,15 @@ export class EnumService {
   private loadTipoOggetto() {
     this.http.get(API_URL + "tipooggetto", { responseType: 'text' }).subscribe(data => {
       var res = JSON.parse(data);
-      res.forEach((element: { _oggetto_nome: string; _tipoOggetto_id: number; }) => {
-        var f = new Enum(element._oggetto_nome, element._tipoOggetto_id);
+      res.forEach((element: { oggetto_nome: string; tipoOggetto_id: number; }) => {
+        var f = new Enum(element.oggetto_nome, element.tipoOggetto_id);
         this.tipoOggetti.push(f);
       });
     });
   }
 
   addTipoOggetto(nomeOggetto: string){
-    this.http.post(API_URL, nomeOggetto, httpOptions).subscribe(data => {
+    this.http.post(API_URL, nomeOggetto).subscribe(data => {
       if(data == true){
         this.loadTipoOggetto();
       }

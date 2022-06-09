@@ -6,10 +6,6 @@ import { webApiUrl } from '../_shared/globals';
 
 const API_URL = webApiUrl + '/client';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'  })
-};
-
 
 @Injectable({
   providedIn: 'root'
@@ -44,11 +40,11 @@ export class ClientService {
   }
 
   updateClient(client: ClientSelectResults): Observable<any>{
-    return this.http.patch(API_URL + "/" + client.clients_id, client, httpOptions);
+    console.log(client);
+    return this.http.patch(API_URL, client);
   }
 
-
   saveClient(client: ClientSelectResults): Observable<any>{
-    return this.http.post(API_URL, client, httpOptions);
+    return this.http.post(API_URL, client);
   }
 }

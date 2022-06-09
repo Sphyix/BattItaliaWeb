@@ -1,1 +1,1 @@
-export const webApiUrl = 'http://batteriaitalia.duckdns.org/api'
+export const webApiUrl = 'http://localhost:8087/api'

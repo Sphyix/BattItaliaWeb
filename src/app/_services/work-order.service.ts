@@ -5,10 +5,6 @@ import { webApiUrl } from '../_shared/globals';
 
 const API_URL = webApiUrl + '/workorder';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'  })
-};
-
 @Injectable({
   providedIn: 'root'
 })

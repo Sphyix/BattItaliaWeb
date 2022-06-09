@@ -43,7 +43,7 @@ export class ClientComponent implements OnInit {
   }
 
   addNew() {
-
+    this.router.navigate(['/client/edit']);
   }
 
   edit(rowIndex: number): void {

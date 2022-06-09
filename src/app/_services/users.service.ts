@@ -7,10 +7,6 @@ import { webApiUrl } from '../_shared/globals';
 
 const API_URL = webApiUrl + '/user';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'  })
-};
-
 @Injectable({
   providedIn: 'root'
 })
@@ -24,18 +20,18 @@ export class UsersService {
   }
 
   getUser(id: number): Observable<any> {
-    return this.http.get(API_URL + "/" + id, httpOptions );
+    return this.http.get(API_URL + "/" + id );
   }
 
   updateUser(user: UserSelectResults): Observable<any>{
-    return this.http.patch(API_URL + "/" + user.users_id, user, httpOptions);
+    return this.http.patch(API_URL + "/" + user.users_id, user);
   }
 
   saveUser(user: UserSelectResults): Observable<any>{
-    return this.http.post(API_URL, user, httpOptions);
+    return this.http.post(API_URL, user);
   }
 
   getPagePermissions(){
-    return this.http.get(webApiUrl + '/pagepermissions', httpOptions)
+    return this.http.get(webApiUrl + '/pagepermissions')
   }
 }

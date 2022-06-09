@@ -50,9 +50,9 @@ export class ProfileEditComponent implements OnInit {
 
   loadUser(id: number) {
     this.service.getUser(id).subscribe(data => {
-      this.nome = data._nome;
-      this.email = data._email;
-      this.permission = data._permission;
+      this.nome = data.nome;
+      this.email = data.email;
+      this.permission = data.permission;
     })
   }
 
