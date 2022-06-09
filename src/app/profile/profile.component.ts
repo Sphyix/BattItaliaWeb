@@ -14,14 +14,14 @@ import { ProfileEditComponent } from './profile-edit/profile-edit.component';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  
+
   tblData: UserSelectResults[];
   @ViewChild('actionEdit', { static: true }) actionEdit: TemplateRef<any>;
   public configuration: Config = { ...DefaultConfig };
   public columns: Columns[];
 
   constructor(private token: TokenStorageService, private service: UsersService, private route: ActivatedRoute,
-    private router: Router, public enumService: EnumService ) { }
+    private router: Router, public enumService: EnumService) { }
 
   ngOnInit(): void {
     this.columns = [
@@ -36,15 +36,15 @@ export class ProfileComponent implements OnInit {
   }
 
   getData(): void {
-   this.service.getUsers().subscribe((data: any) => {
-     var parsedData = JSON.parse(data);
-     parsedData.forEach((element: { permissionText: string; _permission: number; }) => {
-       element.permissionText = this.enumService.getPermission(element._permission);
-     });
-     console.log(parsedData);
-     this.tblData = parsedData;
-     console.log(this.tblData);
-  })
+    this.service.getUsers().subscribe((data: any) => {
+      var parsedData = JSON.parse(data);
+      parsedData.forEach((element: { permissionText: string; _permission: number; }) => {
+        element.permissionText = this.enumService.getPermission(element._permission);
+      });
+      console.log(parsedData);
+      this.tblData = parsedData;
+      console.log(this.tblData);
+    });
   }
 
   edit(rowIndex: number): void {
@@ -55,10 +55,10 @@ export class ProfileComponent implements OnInit {
 
   showDetail(rowData?: any): void {
     console.log(rowData);
-    this.router.navigate(['/profile/edit', rowData._users_id ]);
+    this.router.navigate(['/profile/edit', rowData._users_id]);
   }
 
-  addNew(){
+  addNew() {
     this.router.navigate(['/profile/edit']);
   }
 

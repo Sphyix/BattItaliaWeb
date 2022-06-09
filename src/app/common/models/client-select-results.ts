@@ -9,9 +9,7 @@ export class ClientSelectResults {
     cognome: string;
     telefono: string;
     mail: string;
-    comune: string;
-    provincia: string;
-    regione: string;
+    cap: number;
     via: string;
     civico: string;
     residenza: string;

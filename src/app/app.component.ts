@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ComuniService } from './_services/comuni.service';
 import { EnumService } from './_services/enum.service';
 import { TokenStorageService } from './_services/token-storage.service';
 import { UsersService } from './_services/users.service';
@@ -22,14 +23,15 @@ export class AppComponent implements OnInit, OnDestroy {
 
   eventBusSub?: Subscription;
 
-  constructor(private tokenStorageService: TokenStorageService, private eventBusService: EventBusService, private router: Router, private userService: UsersService,
-    private enumService: EnumService) { }
+  constructor(private tokenStorageService: TokenStorageService, private eventBusService: EventBusService, private router: Router, 
+    private userService: UsersService, private enumService: EnumService, private comuniService: ComuniService) { }
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {
       this.enumService.loadEnums();
+      this.comuniService.loadRegioni();
 
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;

@@ -11,7 +11,7 @@
       <span class="menu-spacer"></span>
       <div class="flexExpand">
           <a mat-button [routerLink]="'/profile'" *ngIf="checkPermission('profile')"> Utenti </a>
-          
+          <a mat-button [routerLink]="'/client'" *ngIf="checkPermission('client')"> Clienti </a>
       </div>
       <div>
         <a mat-button [routerLink]="'/login'" *ngIf="!isLoggedIn"> Login </a>

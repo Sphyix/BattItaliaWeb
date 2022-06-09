@@ -13,6 +13,7 @@ import { ProfileEditComponent } from './profile/profile-edit/profile-edit.compon
 import { MyWorkComponent } from './my-work/my-work/my-work.component';
 import { MyWorkEditComponent } from './my-work/components/my-work-edit/my-work-edit.component';
 import { MyWorkNewComponent } from './my-work/components/my-work-new/my-work-new.component';
+import { ClientComponent } from './client/client.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'mod', component: BoardModeratorComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: BoardAdminComponent, canActivate: [AuthGuard] },
   { path: 'mywork', component: MyWorkComponent, canActivate: [AuthGuard] },
+  { path: 'client', component: ClientComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
   //details

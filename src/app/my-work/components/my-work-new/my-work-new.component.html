@@ -18,8 +18,6 @@
 
       </div>
     </div>
-
-
   </div>
 
 
@@ -77,9 +75,16 @@
       <div class="form-group col-md-4">
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Comune</mat-label>
-            <input type="text" required="false" matInput [(ngModel)]="client.comune"
-              name="comune" #Comune>
+            <mat-label>Regione</mat-label>
+            <mat-select [(ngModel)]="regioneSelection" required name="regione" #Regione>
+              <mat-option>
+                <ngx-mat-select-search placeholderLabel="Cerca regione" [formControl]="regioneFilterCtrl">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let perm of this.regioniView" [value]="perm.value">
+                {{perm.text}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
       </div>
@@ -88,8 +93,15 @@
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Provincia</mat-label>
-            <input type="text" required="false" matInput [(ngModel)]="client.provincia"
-              name="provincia" #Provincia>
+            <mat-select [(ngModel)]="provinciaSelection"  required name="provincia" #Provincia>
+              <mat-option>
+                <ngx-mat-select-search placeholderLabel="Cerca provincia" [formControl]="provinciaFilterCtrl">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let perm of this.provinceView" [value]="perm.value">
+                {{perm.text}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
       </div>
@@ -97,9 +109,16 @@
       <div class="form-group col-md-4">
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Regione</mat-label>
-            <input type="text" required="false" matInput [(ngModel)]="client.regione"
-              name="regione" #Regione>
+            <mat-label>Comune</mat-label>
+            <mat-select [(ngModel)]="client.cap" required name="comune" #Comune>
+              <mat-option>
+                <ngx-mat-select-search placeholderLabel="Cerca comune" [formControl]="comuneFilterCtrl">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let perm of this.comuniView" [value]="perm.value">
+                {{perm.text}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
       </div>
@@ -108,8 +127,7 @@
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Via</mat-label>
-            <input type="text" required="false" matInput [(ngModel)]="client.via"
-              name="via" #Via>
+            <input type="text" required="false" matInput [(ngModel)]="client.via" name="via" #Via>
           </mat-form-field>
         </div>
       </div>
@@ -118,8 +136,7 @@
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Civico</mat-label>
-            <input type="text" required="false" matInput [(ngModel)]="client.civico"
-              name="civico" #Civico>
+            <input type="text" required="false" matInput [(ngModel)]="client.civico" name="civico" #Civico>
           </mat-form-field>
         </div>
       </div>
@@ -153,8 +170,8 @@
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Tipo Oggetto</mat-label>
-            <mat-select [(ngModel)]="workOrder.tipoOggetto" required [ngModelOptions]="{standalone: true}" name="tipoOggetto"
-              #TipoOggetto>
+            <mat-select [(ngModel)]="workOrder.tipoOggetto" required [ngModelOptions]="{standalone: true}"
+              name="tipoOggetto" #TipoOggetto>
               <mat-option *ngFor="let perm of this.tipoOggetti" [value]="perm.value">
                 {{perm.text}}
               </mat-option>
@@ -181,8 +198,8 @@
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Difficoltà</mat-label>
-            <mat-select [(ngModel)]="workOrder.difficolta" required [ngModelOptions]="{standalone: true}" name="difficolta"
-              #Difficolta>
+            <mat-select [(ngModel)]="workOrder.difficolta" required [ngModelOptions]="{standalone: true}"
+              name="difficolta" #Difficolta>
               <mat-option *ngFor="let perm of this.difficolta" [value]="perm.value">
                 {{perm.text}}
               </mat-option>
@@ -206,7 +223,8 @@
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Difetto da controllare</mat-label>
-            <input type="text" required="false" matInput [(ngModel)]="workOrder.difetto" name="Riferimento" #Riferimento>
+            <input type="text" required="false" matInput [(ngModel)]="workOrder.difetto" name="Riferimento"
+              #Riferimento>
           </mat-form-field>
         </div>
       </div>
@@ -215,11 +233,11 @@
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Difetto fisso/saltuario</mat-label>
-            <mat-select [(ngModel)]="workOrder.difficolta" required [ngModelOptions]="{standalone: true}" name="difficolta"
-            #Difficolta>
-            <mat-option value="1">Fisso</mat-option>
-            <mat-option value="0">Saltuario</mat-option>
-          </mat-select>
+            <mat-select [(ngModel)]="workOrder.difficolta" required="false" [ngModelOptions]="{standalone: true}"
+              name="difettoFisso" #DifettoFisso>
+              <mat-option value="1">Fisso</mat-option>
+              <mat-option value="0">Saltuario</mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
       </div>
@@ -254,8 +272,8 @@
     </div>
   </div> -->
 
-  <ng-template #actionEdit let-row let-rowIndex="rowIndex">
-    <div class="btn btn-primary" (click)="selectClient(rowIndex)">Seleziona</div>
-    &nbsp;
-    <div class="btn btn-primary" (click)="editClient(rowIndex)">Modifica</div>
-  </ng-template>
+<ng-template #actionEdit let-row let-rowIndex="rowIndex">
+  <div class="btn btn-primary" (click)="selectClient(rowIndex)">Seleziona</div>
+  &nbsp;
+  <div class="btn btn-primary" (click)="editClient(rowIndex)">Modifica</div>
+</ng-template>

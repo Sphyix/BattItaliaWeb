@@ -25,6 +25,7 @@ import { MyWorkEditComponent } from './my-work/components/my-work-edit/my-work-e
 import { MyWorkNewComponent } from './my-work/components/my-work-new/my-work-new.component';
 import { ClientComponent } from './client/client.component';
 import { ClientEditComponent } from './client/client-edit/client-edit.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { ClientEditComponent } from './client/client-edit/client-edit.component'
     BrowserAnimationsModule,
     MaterialModule,
     DropDownsModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
+    NgxMatSelectSearchModule
   ],
   providers: [authInterceptorProviders, AuthGuardService],
   bootstrap: [AppComponent]

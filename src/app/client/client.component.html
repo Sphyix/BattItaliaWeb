@@ -1,1 +1,14 @@
-<p>client works!</p>
+&nbsp;
+
+
+<div class="columns">
+  <div class="btn btn-primary" (click)="addNew()" >Aggiungi nuovo Utente</div>
+  <div class="column col-12">
+    <ngx-table [configuration]="configuration" [data]="tblData" [columns]="columns" > </ngx-table>
+  </div>
+</div>
+
+<ng-template #actionEdit let-row let-rowIndex="rowIndex">
+  <div class="btn btn-primary" (click)="edit(rowIndex)">Modifica</div>
+</ng-template>
+
