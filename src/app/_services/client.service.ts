@@ -44,7 +44,7 @@ export class ClientService {
   }
 
   updateClient(client: ClientSelectResults): Observable<any>{
-    return this.http.patch(API_URL + "/" + client._clients_id, client, httpOptions);
+    return this.http.patch(API_URL + "/" + client.clients_id, client, httpOptions);
   }
 
 

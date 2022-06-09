@@ -4,7 +4,7 @@
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Nome</mat-label>
-            <input type="text"  required matInput [formControl]="nomeFormControl" [(ngModel)]="client._nome"
+            <input type="text"  required matInput [formControl]="nomeFormControl" [(ngModel)]="client.nome"
               name="nome" #Nome>
             <mat-error *ngIf="nomeFormControl.hasError('required')">
               Nome è <strong>obbligatorio</strong>
@@ -16,7 +16,7 @@
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Cognome</mat-label>
-            <input type="text" required matInput [formControl]="cognomeFormControl" [(ngModel)]="client._cognome"
+            <input type="text" required matInput [formControl]="cognomeFormControl" [(ngModel)]="client.cognome"
               name="cognome" #Cognome>
             <mat-error *ngIf="cognomeFormControl.hasError('required')">
               Cognome è <strong>obbligatorio</strong>
@@ -28,7 +28,7 @@
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Telefono</mat-label>
-            <input type="text" required matInput [formControl]="telefonoFormControl" [(ngModel)]="client._telefono"
+            <input type="text" required matInput [formControl]="telefonoFormControl" [(ngModel)]="client.telefono"
               name="Telefono" #Telefono>
             <mat-error *ngIf="telefonoFormControl.hasError('required')">
               Telefono non valido
@@ -40,7 +40,7 @@
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Email</mat-label>
-            <input type="email" required="false" matInput [formControl]="emailFormControl" [(ngModel)]="client._mail"
+            <input type="email" required="false" matInput [formControl]="emailFormControl" [(ngModel)]="client.mail"
               name="email" placeholder="Ex. pat@example.com">
             <mat-error *ngIf="emailFormControl.hasError('email')">
               Email non valida
@@ -87,7 +87,7 @@
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Comune</mat-label>
-            <mat-select [(ngModel)]="client._ccap" required name="comune" #Comune>
+            <mat-select [(ngModel)]="client.ccap" required name="comune" #Comune>
               <mat-option>
                 <ngx-mat-select-search placeholderLabel="Cerca comune" [formControl]="comuneFilterCtrl">
                 </ngx-mat-select-search>
@@ -104,7 +104,7 @@
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Via</mat-label>
-            <input type="text" required="false" matInput [(ngModel)]="client._via" name="via" #Via>
+            <input type="text" required="false" matInput [(ngModel)]="client.via" name="via" #Via>
           </mat-form-field>
         </div>
       </div>
@@ -112,7 +112,7 @@
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Civico</mat-label>
-            <input type="text" required="false" matInput [(ngModel)]="client._civico" name="civico" #Civico>
+            <input type="text" required="false" matInput [(ngModel)]="client.civico" name="civico" #Civico>
           </mat-form-field>
         </div>
       </div>

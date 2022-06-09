@@ -58,10 +58,10 @@ export class MyWorkNewComponent implements OnInit {
     this.tipoOggetti = this.enumService.tipoOggetti;
     this.difficolta = this.enumService.difficolta;
     this.columns = [
-      { key: '_nome', title: 'Nome' },
-      { key: '_cognome', title: 'Cognome' },
-      { key: '_telefono', title: 'Telefono' },
-      { key: '_mail', title: 'Email' },
+      { key: 'nome', title: 'Nome' },
+      { key: 'cognome', title: 'Cognome' },
+      { key: 'telefono', title: 'Telefono' },
+      { key: 'mail', title: 'Email' },
       { key: 'residenza', title: 'Residenza' },
       { key: 'action', title: 'Azioni', cellTemplate: this.actionEdit },
     ];
@@ -74,7 +74,7 @@ export class MyWorkNewComponent implements OnInit {
     this.clientService.getClients().subscribe((data) => {
       this.tblData = JSON.parse(data);
       this.tblData.forEach(element => {
-        element.residenza = element._via + ' ' + element._civico + ", " + element._comune;
+        element.residenza = element.via + ' ' + element.civico + ", " + element.comune;
       });
     })
   }

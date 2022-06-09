@@ -33,8 +33,8 @@ export class ComuniService {
   loadRegioni() {
     this.http.get(regioni_url , { responseType: 'text' }).subscribe(data => {
       var res = JSON.parse(data);
-      res.forEach((element: { _cod_regione: number; _regione: string; }) => {
-        var f = new Enum(element._regione, element._cod_regione);
+      res.forEach((element: { cod_regione: number; regione: string; }) => {
+        var f = new Enum(element.regione, element.cod_regione);
         this.regioni.push(f);
       });
     });

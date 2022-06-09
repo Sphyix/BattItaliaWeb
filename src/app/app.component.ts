@@ -70,9 +70,9 @@ export class AppComponent implements OnInit, OnDestroy {
   checkPermission(route: string): boolean {
     var res = false;
     if (this.pagePerms?.length > 0) {
-      this.pagePerms.forEach((element: { _menu_permission: number; _pageurl: string; }) => {
-        if (this.roles? this.roles >= element._menu_permission : false) {
-          if (route == element._pageurl) {
+      this.pagePerms.forEach((element: { menu_permission: number; pageurl: string; }) => {
+        if (this.roles? this.roles >= element.menu_permission : false) {
+          if (route == element.pageurl) {
             res = true;
           }
         }

@@ -25,8 +25,8 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.columns = [
-      { key: '_nome', title: 'Username' },
-      { key: '_email', title: 'Email' },
+      { key: 'nome', title: 'Username' },
+      { key: 'email', title: 'Email' },
       { key: 'permissionText', title: 'Ruolo' },
       { key: 'action', title: 'Azioni', cellTemplate: this.actionEdit },
     ];
@@ -38,8 +38,8 @@ export class ProfileComponent implements OnInit {
   getData(): void {
     this.service.getUsers().subscribe((data: any) => {
       var parsedData = JSON.parse(data);
-      parsedData.forEach((element: { permissionText: string; _permission: number; }) => {
-        element.permissionText = this.enumService.getPermission(element._permission);
+      parsedData.forEach((element: { permissionText: string; permission: number; }) => {
+        element.permissionText = this.enumService.getPermission(element.permission);
       });
       console.log(parsedData);
       this.tblData = parsedData;
@@ -55,7 +55,7 @@ export class ProfileComponent implements OnInit {
 
   showDetail(rowData?: any): void {
     console.log(rowData);
-    this.router.navigate(['/profile/edit', rowData._users_id]);
+    this.router.navigate(['/profile/edit', rowData.users_id]);
   }
 
   addNew() {

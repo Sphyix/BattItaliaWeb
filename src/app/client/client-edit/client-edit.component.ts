@@ -128,8 +128,8 @@ export class ClientEditComponent implements OnInit {
   getProvince(value: any) {
     this.comuniService.getProvince(value).subscribe((data) => {
       var res = JSON.parse(data);
-      res.forEach((element: { _provincia: string; _sigla: number; }) => {
-        var f = new Enum(element._provincia, element._sigla);
+      res.forEach((element: { provincia: string; sigla: number; }) => {
+        var f = new Enum(element.provincia, element.sigla);
         this.provinceList.push(f);
       });
       this.provinceView = this.provinceList;
@@ -139,8 +139,8 @@ export class ClientEditComponent implements OnInit {
   getComuni(value: any) {
     this.comuniService.getComuni(value).subscribe((data) => {
       var res = JSON.parse(data);
-      res.forEach((element: { _comune: string; _cap: number; }) => {
-        var f = new Enum(element._comune, element._cap);
+      res.forEach((element: { comune: string; cap: number; }) => {
+        var f = new Enum(element.comune, element.cap);
         this.comuniList.push(f);
       });
       this.comuniView = this.comuniList;
@@ -155,13 +155,13 @@ export class ClientEditComponent implements OnInit {
 
   clickSave(){
     var userExists = false;
-    this.service.getClient(this.client._nome, this.client._cognome, this.client._telefono).subscribe((data) => {
+    this.service.getClient(this.client.nome, this.client.cognome, this.client.telefono).subscribe((data) => {
       if(data != []){
         var res = JSON.parse(data);
         console.log(res);
       } 
     });
-    this.service.getClient(this.client._nome, this.client._cognome).subscribe((data) => {
+    this.service.getClient(this.client.nome, this.client.cognome).subscribe((data) => {
       if(data != []){
         var res = JSON.parse(data);
         console.log(res);
@@ -192,10 +192,10 @@ export class ClientEditComponent implements OnInit {
       this.client = res;
       console.log(this.client);
       this.isClientLoaded = true;
-      this.getProvince(res._cod_regione);
-      this.getComuni(res._sigla);
-      this.regioneSelection = res._cod_regione;
-      this.provinciaSelection = res._sigla;
+      this.getProvince(res.cod_regione);
+      this.getComuni(res.sigla);
+      this.regioneSelection = res.cod_regione;
+      this.provinciaSelection = res.sigla;
       
     });
   }
