@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Columns, Config, DefaultConfig } from 'ngx-easy-table';
 import { ReplaySubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ClientEditComponent } from 'src/app/client/client-edit/client-edit.component';
 import { ClientSelectResults } from 'src/app/common/models/client-select-results';
 import { Enum } from 'src/app/common/models/enum';
 import { WorkOrderSelectResults } from 'src/app/common/models/work-order-select-results';
@@ -26,15 +27,10 @@ export class MyWorkNewComponent implements OnInit {
 
   isNewClient = false;
 
+  @ViewChild('clientEdit') clientEdit: ClientEditComponent;
+
   public tipoOggetti: any;
   public difficolta: any;
-
-  public regioniView = [] as Enum[];
-  public regioniList = [] as Enum[];
-  public provinceView = [] as Enum[];
-  public provinceList = [] as Enum[];
-  public comuniView = [] as Enum[];
-  public comuniList = [] as Enum[];
 
   regioneSelection: any;
   provinciaSelection: any;
@@ -53,36 +49,11 @@ export class MyWorkNewComponent implements OnInit {
   comuneFilterCtrl: FormControl = new FormControl();
 
   protected _onDestroy = new Subject();
+
   constructor(private service: WorkOrderService, private router: Router, private clientService: ClientService,
-    private enumService: EnumService, private comuniService: ComuniService) { }
+    private enumService: EnumService) { }
 
   ngOnInit(): void {
-
-    this.regioniList = this.regioniView = this.comuniService.regioni;
-    this.regioneFilterCtrl.valueChanges
-      .pipe(takeUntil(this._onDestroy))
-      .subscribe(() => {
-        this.filterRegioni();
-        if(this.regioneSelection != undefined){
-          this.getProvince(this.regioneSelection);
-        }
-      });
-
-
-      this.provinciaFilterCtrl.valueChanges
-      .pipe(takeUntil(this._onDestroy))
-      .subscribe(() => {
-        this.filterProvince();
-        if(this.provinciaSelection != undefined){
-          this.getComuni(this.provinciaSelection);
-        }
-      });
-
-      this.comuneFilterCtrl.valueChanges
-      .pipe(takeUntil(this._onDestroy))
-      .subscribe(() => {
-        this.filterComuni();
-      });
 
     this.tipoOggetti = this.enumService.tipoOggetti;
     this.difficolta = this.enumService.difficolta;
@@ -97,73 +68,6 @@ export class MyWorkNewComponent implements OnInit {
     this.getClientData();
     this.configuration = { ...DefaultConfig };
     this.configuration.searchEnabled = true;
-  }
-
-  protected filterRegioni() {
-    let search = this.regioneFilterCtrl.value;
-    if (!search) {
-      this.regioniView = this.regioniList.slice();
-      return;
-    } else {
-      this.regioniView = [] as Enum[];
-      this.regioniList.forEach((element: { value: number, text: string; }) => {
-        if(element.text.includes(search)){
-          this.regioniView.push(element);
-        }
-      });
-    }
-  }
-
-  protected filterProvince() {
-    let search = this.provinciaFilterCtrl.value;
-    if (!search) {
-      this.provinceView = this.provinceList.slice();
-      return;
-    } else {
-      this.provinceView = [] as Enum[];
-      this.provinceList.forEach((element: { value: number, text: string; }) => {
-        if(element.text.includes(search)){
-          this.provinceView.push(element);
-        }
-      });
-    }
-  }
-
-  protected filterComuni() {
-    let search = this.comuneFilterCtrl.value;
-    if (!search) {
-      this.comuniView = this.comuniList.slice();
-      return;
-    } else {
-      this.comuniView = [] as Enum[];
-      this.comuniList.forEach((element: { value: number, text: string; }) => {
-        if(element.text.includes(search)){
-          this.comuniView.push(element);
-        }
-      });
-    }
-  }
-
-  getProvince(value: any) {
-    this.comuniService.getProvince(value).subscribe((data) => {
-      var res = JSON.parse(data);
-      res.forEach((element: { _provincia: string; _sigla: number; }) => {
-        var f = new Enum(element._provincia, element._sigla);
-        this.provinceList.push(f);
-      });
-      this.provinceView = this.provinceList;
-    })
-  }
-
-  getComuni(value: any) {
-    this.comuniService.getComuni(value).subscribe((data) => {
-      var res = JSON.parse(data);
-      res.forEach((element: { _comune: string; _cap: number; }) => {
-        var f = new Enum(element._comune, element._cap);
-        this.comuniList.push(f);
-      });
-      this.comuniView = this.comuniList;
-    });
   }
 
   getClientData() {
@@ -183,6 +87,22 @@ export class MyWorkNewComponent implements OnInit {
   }
 
   clickNext() {
+    switch (this.step) {
+      case 0:
+        if(this.isNewClient) {
+          this.client = this.clientEdit.client;
+        }
+        this.step++;
+        break;
+      case 3:
+        //salva
+        break;
+
+      default:
+        this.step++;
+        break;
+    }
+    
     if (this.step != 3) {
       this.step++;
     }
@@ -207,7 +127,7 @@ export class MyWorkNewComponent implements OnInit {
   }
 
   editClient(rowIndex: any) {
-    
+
     //@@@@@@@@@@@@@ GOTO edit client
   }
 }

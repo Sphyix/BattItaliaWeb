@@ -14,6 +14,7 @@ import { MyWorkComponent } from './my-work/my-work/my-work.component';
 import { MyWorkEditComponent } from './my-work/components/my-work-edit/my-work-edit.component';
 import { MyWorkNewComponent } from './my-work/components/my-work-new/my-work-new.component';
 import { ClientComponent } from './client/client.component';
+import { ClientEditComponent } from './client/client-edit/client-edit.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -31,6 +32,8 @@ const routes: Routes = [
   { path: 'profile/edit', component: ProfileEditComponent, canActivate: [AuthGuard] },
   { path: 'mywork/edit/:id', component: MyWorkEditComponent, canActivate: [AuthGuard] },
   { path: 'mywork/new', component: MyWorkNewComponent, canActivate: [AuthGuard] },
+  { path: 'client/edit/:id', component: ClientEditComponent, canActivate: [AuthGuard] },
+  { path: 'client/edit', component: ClientEditComponent, canActivate: [AuthGuard] },
 
 
   

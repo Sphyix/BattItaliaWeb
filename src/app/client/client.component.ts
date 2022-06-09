@@ -19,9 +19,11 @@ export class ClientComponent implements OnInit {
 
   ngOnInit(): void {
     this.columns = [
-      { key: '_nome', title: 'Username' },
-      { key: '_email', title: 'Email' },
-      { key: 'permissionText', title: 'Ruolo' },
+      { key: '_nome', title: 'Nome' },
+      { key: '_cognome', title: 'Cognome' },
+      { key: '_telefono', title: 'Telefono' },
+      { key: '_mail', title: 'E-mail' },
+      { key: 'indirizzoCompleto', title: 'Indirizzo' },
       { key: 'action', title: 'Azioni', cellTemplate: this.actionEdit },
     ];
     this.getData();
@@ -32,9 +34,9 @@ export class ClientComponent implements OnInit {
   getData(): void {
     this.service.getClients().subscribe((data: any) => {
       var parsedData = JSON.parse(data);
-      // parsedData.forEach((element: { permissionText: string; _permission: number; }) => {
-      //   element.permissionText = this.enumService.getPermission(element._permission);
-      // });
+      parsedData.forEach((element: { _comune: string; _sigla: string; _regione: string; _ccap: string; _via: string; _civico: string; indirizzoCompleto: string}) => {
+        element.indirizzoCompleto = element._via + ' ' + element._civico + ', ' + element._comune + ', ' + element._ccap + ' ' + element._sigla + ' ' + element._regione
+      });
       console.log(parsedData);
       this.tblData = parsedData;
     });
@@ -51,7 +53,7 @@ export class ClientComponent implements OnInit {
   }
 
   showDetail(rowData: any) {
-    this.router.navigate(['/client/edit', rowData._users_id]);
+    this.router.navigate(['/client/edit', rowData._clients_id]);
   }
 
 

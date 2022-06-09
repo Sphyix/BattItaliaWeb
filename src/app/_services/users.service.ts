@@ -28,7 +28,11 @@ export class UsersService {
   }
 
   updateUser(user: UserSelectResults): Observable<any>{
-    return this.http.patch(API_URL, user, httpOptions);
+    return this.http.patch(API_URL + "/" + user.users_id, user, httpOptions);
+  }
+
+  saveUser(user: UserSelectResults): Observable<any>{
+    return this.http.post(API_URL, user, httpOptions);
   }
 
   getPagePermissions(){

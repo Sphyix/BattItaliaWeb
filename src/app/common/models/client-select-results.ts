@@ -4,16 +4,18 @@
  */
 
 export class ClientSelectResults {
-    clients_id: number;
-    nome: string;
-    cognome: string;
-    telefono: string;
-    mail: string;
-    via: string;
-    civico: string;
-    ccap: number;
-    comune: string;
-    provincia: string;
-    regione: string;
-    cap: number;
+    _clients_id: number;
+    _nome: string;
+    _cognome: string;
+    _telefono: string;
+    _mail: string;
+    _via: string;
+    _civico: string;
+    _ccap: number;
+    _comune: string;
+    _provincia: string;
+    _regione: string;
+    _cod_regione: number;
+    _sigla: string;
+    _comune_id: string;
 }
