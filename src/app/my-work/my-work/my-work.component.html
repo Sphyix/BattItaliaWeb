@@ -7,8 +7,8 @@
   </div>
 </div>
 <ng-template #actionEdit let-row let-rowIndex="rowIndex">
-  <div class="btn btn-primary" *ngIf="row._nome != undefined" (click)="edit(rowIndex)">Modifica</div>
-  <div class="btn btn-primary" *ngIf="row._nome == undefined" (click)="assign(rowIndex)">Assegna a me</div>
+  <div class="btn btn-primary" *ngIf="row.nome != undefined" (click)="edit(rowIndex)">Modifica</div>
+  <div class="btn btn-primary" *ngIf="row.nome == undefined" (click)="assign(rowIndex)">Assegna a me</div>
 </ng-template>
 
 <ng-template #actionAssign let-row let-rowIndex="rowIndex">
@@ -16,11 +16,11 @@
 </ng-template>
 
 <ng-template #difficoltaCircle let-row let-rowIndex="rowIndex">
-  <div class="circle" [style.color]="getDifficultyColor(row._difficolta)"></div>
+  <div class="circle" [style.color]="getDifficultyColor(row.difficolta)"></div>
 </ng-template>
 
 <ng-template #difettoFisso let-row let-rowIndex="rowIndex">
-  <span class="font-small">{{ row._difettofisso == 1 ? 'Fisso' : 'No' }}</span>
+  <span class="font-small">{{ row.difettofisso == 1 ? 'Fisso' : 'No' }}</span>
 </ng-template>
 
 <ng-template #actionEdit let-row let-rowIndex="rowIndex">

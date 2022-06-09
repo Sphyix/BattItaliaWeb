@@ -26,11 +26,11 @@ export class MyWorkComponent implements OnInit {
   ngOnInit(): void {
     this.columns = [
       
-      { key: '_modello', title: 'Modello' },
-      { key: '_permission', title: 'Ruolo' },
+      { key: 'modello', title: 'Modello' },
+      { key: 'permission', title: 'Ruolo' },
       { key: 'difficolta', title: 'Difficoltà', cellTemplate: this.difficoltaCircle },
       { key: 'difettofisso', title: 'Difetto Fisso', cellTemplate: this.difettoFisso },
-      { key: '_nome', title: 'Operatore' },
+      { key: 'nome', title: 'Operatore' },
       { key: 'action', title: 'Azioni', cellTemplate: this.actionEdit },
       
     ];
@@ -58,7 +58,7 @@ export class MyWorkComponent implements OnInit {
   }
 
   showDetail(rowData?: any): void {
-    this.router.navigate(['/mywork/edit', rowData._workOrders_id ]);
+    this.router.navigate(['/mywork/edit', rowData.workOrders_id ]);
   }
 
   getDifficultyColor(difficolta: number){
