@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Columns, Config, DefaultConfig } from 'ngx-easy-table';
 import { ReplaySubject, Subject } from 'rxjs';
@@ -21,6 +21,17 @@ import { WorkOrderService } from 'src/app/_services/work-order.service';
 export class MyWorkNewComponent implements OnInit {
 
   step: number = 0;
+
+  images: any;
+
+  infoBase = new FormGroup({
+    nome: new FormControl('', [Validators.required]),
+    cognome: new FormControl('', [Validators.required]),
+    mail: new FormControl('', [Validators.email]),
+    telefono: new FormControl('', [Validators.required, Validators.pattern('([0-9+ ]{8,17})')]),
+    via: new FormControl(),
+    civico: new FormControl(),
+  });
 
   workOrder = new WorkOrderSelectResults();
   client = new ClientSelectResults();
@@ -75,8 +86,29 @@ export class MyWorkNewComponent implements OnInit {
       this.tblData = JSON.parse(data);
       this.tblData.forEach(element => {
         element.residenza = element.via + ' ' + element.civico + ", " + element.comune;
+        var regex = new RegExp('null,? ?');
+        while(element.residenza.includes('null')){
+          element.residenza = element.residenza.replace(regex, ' ');
+        }
       });
     })
+  }
+
+  onFileChange(event: any) {
+    if (event.target.files && event.target.files[0]) {
+        var filesAmount = event.target.files.length;
+        this.images = [{}];
+        this.images.pop();
+        for (let i = 0; i < filesAmount; i++) {
+                var reader = new FileReader();
+   
+                reader.onload = (readerEvent:any) => {
+                   this.images.push(readerEvent.currentTarget.result); 
+                }
+  
+                reader.readAsDataURL(event.target.files[i]);
+        }
+    }
   }
 
   getCurrentStep(currStep: number) {
@@ -92,14 +124,12 @@ export class MyWorkNewComponent implements OnInit {
         if(this.isNewClient) {
           this.client = this.clientEdit.client;
         }
-        this.step++;
         break;
       case 3:
         //salva
         break;
 
       default:
-        this.step++;
         break;
     }
     
@@ -109,10 +139,21 @@ export class MyWorkNewComponent implements OnInit {
     else {
       //salva
     }
-
   }
 
   clickBack() {
+    switch (this.step) {
+      case 2:
+        this.images = [{}];
+        this.images.pop();
+        break;
+      case 3:
+        //salva
+        break;
+
+      default:
+        break;
+      }
     if (this.step > 0) {
       this.step--;
     }
@@ -127,7 +168,7 @@ export class MyWorkNewComponent implements OnInit {
   }
 
   editClient(rowIndex: any) {
-
-    //@@@@@@@@@@@@@ GOTO edit client
+    var row = this.tblData[rowIndex];
+    this.router.navigate(['/client/edit', {id: row.clients_id, customReturn: 'mywork/new'}]);
   }
 }

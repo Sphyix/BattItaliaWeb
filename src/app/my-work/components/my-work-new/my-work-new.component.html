@@ -101,8 +101,7 @@
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Difetto da controllare</mat-label>
-            <input type="text" required="false" matInput [(ngModel)]="workOrder.difetto" name="Riferimento"
-              #Riferimento>
+            <input type="text" required="false" matInput [(ngModel)]="workOrder.difetto" name="difetto" #Difetto>
           </mat-form-field>
         </div>
       </div>
@@ -111,7 +110,7 @@
         <div class="input-group">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Difetto fisso/saltuario</mat-label>
-            <mat-select [(ngModel)]="workOrder.difficolta" required="false" [ngModelOptions]="{standalone: true}"
+            <mat-select [(ngModel)]="workOrder.difettofisso" required="false" [ngModelOptions]="{standalone: true}"
               name="difettoFisso" #DifettoFisso>
               <mat-option value="1">Fisso</mat-option>
               <mat-option value="0">Saltuario</mat-option>
@@ -122,6 +121,38 @@
     </div>
   </div>
 </div>
+
+<div class="card" *ngIf="getCurrentStep(2)">
+  <div class="drag card-header callout callout-info font-weight-bold">
+    <label>Informazioni base</label>
+    <div class="card-actions">
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="form-row">
+      <label for="file">File</label>
+      <input
+          id="file" 
+          type="file" 
+          class="form-control"
+          multiple="" 
+          (change)="onFileChange($event)">
+      <!-- <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
+          <div *ngIf="f.file.errors.required">File is required.</div>
+      </div> -->
+  </div>
+    <div class="form-row">
+      <img *ngFor='let url of images'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
+      <!-- <input class="ng-hide" id="input-file-id" multiple type="file" />
+      <label for="input-file-id" class="md-button md-raised md-primary">Choose Files</label> -->
+    </div>
+  </div>
+</div>
+
+
+
+
+
 
 <div class="card">
   <div class="card-body">

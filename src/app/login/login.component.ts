@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
       this.utente = this.tokenStorage.getUser().userName;
-      this.enumService.loadUserPermissions().then(() => {
-        this.roleText = this.enumService.getPermission(this.roles);
+      this.enumService.loadUserPermissions().pipe().subscribe(() => {
+          this.roleText = this.enumService.getPermission(this.roles);
       });
     }
   }

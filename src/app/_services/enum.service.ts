@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { Enum } from '../common/models/enum';
 import { webApiUrl } from '../_shared/globals';
 
@@ -27,6 +28,9 @@ export class EnumService {
 
   loadEnums() {
 
+    // forkJoin( {stati: this.loadStato()}).subscribe(ele => (
+    //   this.stati = ele.stati
+    // ))
     if (this.stati.length == 0) {
       this.loadStato();
     }
@@ -46,17 +50,28 @@ export class EnumService {
   //   });
   // }
 
-  async loadUserPermissions() {
-    return new Promise( resolve =>  this.http.get(API_URL + "permissions", { responseType: 'text' }).subscribe(data => {
+   public loadUserPermissions(): Observable<any> {
+    return this.http.get(API_URL + "permissions", { responseType: 'text' }).pipe(tap(data => 
+    {
       var res = JSON.parse(data);
       res.forEach((element: { user_permission: string; user_permission_id: number; }) => {
         var f = new Enum(element.user_permission, element.user_permission_id);
         this.permissions.push(f);
       });
-      resolve("");
-    })
-    );
+    }));
   }
+
+  // async loadUserPermissions() {
+  //   return new Promise( resolve =>  this.http.get(API_URL + "permissions", { responseType: 'text' }).subscribe(data => {
+  //     var res = JSON.parse(data);
+  //     res.forEach((element: { user_permission: string; user_permission_id: number; }) => {
+  //       var f = new Enum(element.user_permission, element.user_permission_id);
+  //       this.permissions.push(f);
+  //     });
+  //     resolve("");
+  //   })
+  //   );
+  // }
 
   getPermission(id: number) {
     var f = "";
@@ -69,14 +84,22 @@ export class EnumService {
   }
 
 
-  private loadStato() {
-    this.http.get(API_URL + "stato", { responseType: 'text' }).subscribe(data => {
+  private loadStato(): Observable<Enum[]> {
+   return this.http.get(API_URL + "stato", { responseType: 'text' }).pipe(map(data => {
       var res = JSON.parse(data);
       res.forEach((element: { stato: string; workOrder_stato_id: number; }) => {
-        var f = new Enum(element.stato, element.workOrder_stato_id);
-        this.stati.push(f);
-      });
+      var f = new Enum(element.stato, element.workOrder_stato_id);
+      this.stati.push(f);
     });
+      return this.stati;
+   }));
+    // .subscribe(data => {
+    //   var res = JSON.parse(data);
+    //   res.forEach((element: { stato: string; workOrder_stato_id: number; }) => {
+    //     var f = new Enum(element.stato, element.workOrder_stato_id);
+    //     this.stati.push(f);
+    //   });
+    // });
   }
 
   getStato(id: number) {

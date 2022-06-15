@@ -27,10 +27,11 @@ export class MyWorkComponent implements OnInit {
     this.columns = [
       
       { key: 'modello', title: 'Modello' },
-      { key: 'permission', title: 'Ruolo' },
-      { key: 'difficolta', title: 'Difficoltà', cellTemplate: this.difficoltaCircle },
+      { key: 'difetto', title: 'Difetto' },
       { key: 'difettofisso', title: 'Difetto Fisso', cellTemplate: this.difettoFisso },
+      { key: 'difficolta', title: 'Difficoltà', cellTemplate: this.difficoltaCircle },
       { key: 'nome', title: 'Operatore' },
+      { key: 'riferimento', title: 'Riferimento' },
       { key: 'action', title: 'Azioni', cellTemplate: this.actionEdit },
       
     ];
@@ -41,6 +42,7 @@ export class MyWorkComponent implements OnInit {
   getData(): void {
     this.service.getWorkOrders().subscribe((data: any) => {
       this.tblData = JSON.parse(data);
+      console.log(this.tblData);
    })
    }
 

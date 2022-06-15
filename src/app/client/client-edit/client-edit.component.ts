@@ -60,7 +60,7 @@ export class ClientEditComponent implements OnInit {
   provinciaFilterCtrl = new FormControl();
   comuneFilterCtrl = new FormControl();
 
-
+  returnValue: string = '/client';
 
   ngOnInit(): void {
     this.regioniList = this.regioniView = this.comuniService.regioni;
@@ -92,6 +92,10 @@ export class ClientEditComponent implements OnInit {
     if (id != undefined) {
       this.loadData(id);
       this.isUpdate = true;
+    }
+    var customReturnValue = this.route.snapshot.params.customReturn;
+    if(customReturnValue != undefined){
+      this.returnValue = customReturnValue;
     }
   }
 
@@ -238,7 +242,7 @@ export class ClientEditComponent implements OnInit {
   }
 
   clickBack() {
-    this.router.navigate(['/client']);
+    this.router.navigate([this.returnValue]);
   }
 
   getFormData() {
