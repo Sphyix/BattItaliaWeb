@@ -1,1 +1,1 @@
-export const webApiUrl = 'http://localhost:8087/api'
+export const webApiUrl = 'http://battitalia.pandotracker.me/api'
