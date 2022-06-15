@@ -72,7 +72,19 @@ export class ProfileEditComponent implements OnInit {
     }
 
     if (this.emailFormControl.valid && this.userFormControl.valid) {
-      this.openSnackBar("Saved");
+      var newUser = {} as UserSelectResults;
+      newUser.nome = this.nome;
+      newUser.email = this.email;
+      newUser.passwd = this.newPsw;
+      newUser.permission = this.permission;
+      this.service.saveUser(newUser).subscribe((data) => {
+        if(data == true){
+          this.openSnackBar("Utente salvato");
+        } else{
+          this.openSnackBar("Errore durante il salvataggio");
+        }
+      });
+      
     } else{
       this.openSnackBar("Errore, ricontrollare tutti i campi");
     }

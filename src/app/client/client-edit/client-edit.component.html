@@ -1,132 +1,140 @@
-<div class="card-body">
-    <div class="form-row">
-      <div class="form-group col-md-4">
-        <div class="input-group">
-          <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Nome</mat-label>
-            <input type="text"  required matInput [formControl]="nomeFormControl" [(ngModel)]="client.nome"
-              name="nome" #Nome>
-            <mat-error *ngIf="nomeFormControl.hasError('required')">
-              Nome è <strong>obbligatorio</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="form-group col-md-4">
-        <div class="input-group">
-          <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Cognome</mat-label>
-            <input type="text" required matInput [formControl]="cognomeFormControl" [(ngModel)]="client.cognome"
-              name="cognome" #Cognome>
-            <mat-error *ngIf="cognomeFormControl.hasError('required')">
-              Cognome è <strong>obbligatorio</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="form-group col-md-4">
-        <div class="input-group">
-          <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Telefono</mat-label>
-            <input type="text" required matInput [formControl]="telefonoFormControl" [(ngModel)]="client.telefono"
-              name="Telefono" #Telefono>
-            <mat-error *ngIf="telefonoFormControl.hasError('required')">
-              Telefono non valido
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="form-group col-md-4">
-        <div class="input-group">
-          <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Email</mat-label>
-            <input type="email" required="false" matInput [formControl]="emailFormControl" [(ngModel)]="client.mail"
-              name="email" placeholder="Ex. pat@example.com">
-            <mat-error *ngIf="emailFormControl.hasError('email')">
-              Email non valida
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-
-      <div class="form-group col-md-4">
-        <div class="input-group">
-          <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Regione</mat-label>
-            <mat-select [(ngModel)]="regioneSelection" required name="regione" #Regione>
-              <mat-option>
-                <ngx-mat-select-search noEntriesFoundLabel="Nessun risultato" placeholderLabel="Cerca regione" [formControl]="regioneFilterCtrl">
-                </ngx-mat-select-search>
-              </mat-option>
-              <mat-option *ngFor="let perm of this.regioniView" [value]="perm.value">
-                {{perm.text}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-
-      <div class="form-group col-md-4">
-        <div class="input-group">
-          <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Provincia</mat-label>
-            <mat-select [(ngModel)]="provinciaSelection"  required name="provincia" #Provincia>
-              <mat-option>
-                <ngx-mat-select-search noEntriesFoundLabel="Nessun risultato" placeholderLabel="Cerca provincia" [formControl]="provinciaFilterCtrl">
-                </ngx-mat-select-search>
-              </mat-option>
-              <mat-option *ngFor="let perm of this.provinceView" [value]="perm.value">
-                {{perm.text}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-
-      <div class="form-group col-md-4">
-        <div class="input-group">
-          <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Comune</mat-label>
-            <mat-select [(ngModel)]="client.ccap" required name="comune" #Comune>
-              <mat-option>
-                <ngx-mat-select-search noEntriesFoundLabel="Nessun risultato" placeholderLabel="Cerca comune" [formControl]="comuneFilterCtrl">
-                </ngx-mat-select-search>
-              </mat-option>
-              <mat-option *ngFor="let perm of this.comuniView" [value]="perm.value">
-                {{perm.text}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-
-      <div class="form-group col-md-4">
-        <div class="input-group">
-          <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Via</mat-label>
-            <input type="text" required="false" matInput [(ngModel)]="client.via" name="via" #Via>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="form-group col-md-4">
-        <div class="input-group">
-          <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Civico</mat-label>
-            <input type="text" required="false" matInput [(ngModel)]="client.civico" name="civico" #Civico>
-          </mat-form-field>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card" *ngIf="isStandalone">
+<form [formGroup]="form" (ngSubmit)="clickSave()">
     <div class="card-body">
-      <div style="float: right;">
-        <button mat-raised-button color="accent" *ngIf="!isUpdate" (click)="clickSave()">Salva</button>
-        <button mat-raised-button color="accent"  *ngIf="isUpdate" (click)="clickUpdate()">Salva</button>
-      </div>
-      <div style="float: left;">
-        <button mat-raised-button color="primary" (click)="clickBack()">Indietro</button>
-      </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <div class="input-group">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Nome</mat-label>
+                        <input type="text" required matInput formControlName="nome" name="nome" #Nome>
+                        <!-- <mat-error *ngIf="nomeFormControl.hasError('required')">
+                            Nome è <strong>obbligatorio</strong>
+                        </mat-error> -->
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <div class="input-group">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Cognome</mat-label>
+                        <input type="text" required matInput formControlName="cognome" name="cognome" #Cognome>
+                        <!-- <mat-error *ngIf="cognomeFormControl.hasError('required')">
+                            Cognome è <strong>obbligatorio</strong>
+                        </mat-error> -->
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <div class="input-group">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Telefono</mat-label>
+                        <input type="text" required matInput formControlName="telefono" name="Telefono"
+                            #Telefono>
+                        <!-- <mat-error *ngIf="telefonoFormControl.hasError('required')">
+                            Telefono non valido
+                        </mat-error> -->
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <div class="input-group">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Email</mat-label>
+                        <input type="email" required="false" matInput formControlName="mail" name="email"
+                            placeholder="Ex. pat@example.com">
+                        <!-- <mat-error *ngIf="emailFormControl.hasError('email')">
+                            Email non valida
+                        </mat-error> -->
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="form-group col-md-4">
+                <div class="input-group">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Regione</mat-label>
+                        <mat-select [(ngModel)]="regioneSelection" [ngModelOptions]="{standalone: true}" required="false"
+                            name="regione" #Regione>
+                            <mat-option>
+                                <ngx-mat-select-search noEntriesFoundLabel="Nessun risultato"
+                                    placeholderLabel="Cerca regione" [formControl]="regioneFilterCtrl">
+                                </ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let perm of this.regioniView" [value]="perm.value">
+                                {{perm.text}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="form-group col-md-4">
+                <div class="input-group">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Provincia</mat-label>
+                        <mat-select [(ngModel)]="provinciaSelection" [ngModelOptions]="{standalone: true}" required="false"
+                            name="provincia" #Provincia>
+                            <mat-option>
+                                <ngx-mat-select-search noEntriesFoundLabel="Nessun risultato"
+                                    placeholderLabel="Cerca provincia"  [formControl]="provinciaFilterCtrl">
+                                </ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let perm of this.provinceView" [value]="perm.value">
+                                {{perm.text}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="form-group col-md-4">
+                <div class="input-group">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Comune</mat-label>
+                        <mat-select [(ngModel)]="cap" [ngModelOptions]="{standalone: true}" required="false" name="comune"
+                            #Comune>
+                            <mat-option>
+                                <ngx-mat-select-search noEntriesFoundLabel="Nessun risultato"
+                                    placeholderLabel="Cerca comune" [formControl]="comuneFilterCtrl">
+                                </ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let perm of this.comuniView" [value]="perm.value">
+                                {{perm.text}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="form-group col-md-4">
+                <div class="input-group">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Via</mat-label>
+                        <input type="text" required="false" matInput name="via" #Via formControlName="via">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <div class="input-group">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Civico</mat-label>
+                        <input type="text" required="false" matInput name="civico" #Civico
+                        formControlName="civico">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
     </div>
-  </div>
+
+    <div class="card" *ngIf="isStandalone">
+        <div class="card-body">
+            <div style="float: right;">
+                <button mat-raised-button color="accent" type="submit">Salva</button>
+            </div>
+            <div style="float: left;">
+                <button mat-raised-button color="primary" (click)="clickBack()">Indietro</button>
+            </div>
+        </div>
+    </div>
+</form>

@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   refreshToken(token: string) {
-    let body = `token=${token}`;
+    let body = `refresh_token=${token}&grant_type=refresh_token`;
     return this.http.post(AUTH_API + 'signin', body, httpOptions);
   }
 }

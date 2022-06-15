@@ -16,7 +16,7 @@ export class ErrorPopupComponent implements OnInit {
   }
 
   onSaveClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close("true");
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -17,8 +18,11 @@ import { ComuniService } from 'src/app/_services/comuni.service';
 })
 export class ClientEditComponent implements OnInit {
 
-  @ViewChild('client')
+  snackBarRef: any;
+
   client = {} as ClientSelectResults;
+
+  cap: number;
 
   @Input()
   isStandalone = true;
@@ -37,39 +41,48 @@ export class ClientEditComponent implements OnInit {
 
   protected _onDestroy = new Subject();
 
-  constructor(private route: ActivatedRoute, private service: ClientService, private comuniService: ComuniService, private router: Router, public dialog: MatDialog) { }
+  constructor(private route: ActivatedRoute, private service: ClientService, private comuniService: ComuniService,
+    private router: Router, public dialog: MatDialog, private snackBar: MatSnackBar) { }
 
-  nomeFormControl = new FormControl('', [Validators.required]);
-  cognomeFormControl = new FormControl('', [Validators.required]);
-  emailFormControl = new FormControl('', [Validators.email]);
-  telefonoFormControl = new FormControl('', [Validators.required, Validators.pattern('([0-9+ ]{8,17})')]);
-  regioneFilterCtrl: FormControl = new FormControl();
-  provinciaFilterCtrl: FormControl = new FormControl();
-  comuneFilterCtrl: FormControl = new FormControl();
+  form = new FormGroup({
+    nome: new FormControl('', [Validators.required]),
+    cognome: new FormControl('', [Validators.required]),
+    mail: new FormControl('', [Validators.email]),
+    telefono: new FormControl('', [Validators.required, Validators.pattern('([0-9+ ]{8,17})')]),
+    via: new FormControl(),
+    civico: new FormControl(),
+    // regione: new FormControl(),
+    // provincia: new FormControl(),
+    // comune: new FormControl(),
+  });
+
+  regioneFilterCtrl = new FormControl();
+  provinciaFilterCtrl = new FormControl();
+  comuneFilterCtrl = new FormControl();
+
+
 
   ngOnInit(): void {
-    this.client = new ClientSelectResults();
     this.regioniList = this.regioniView = this.comuniService.regioni;
     this.regioneFilterCtrl.valueChanges
       .pipe(takeUntil(this._onDestroy))
       .subscribe(() => {
         this.filterRegioni();
-        if(this.regioneSelection != undefined){
+        if (this.regioneSelection != undefined) {
           this.getProvince(this.regioneSelection);
         }
       });
 
-
-      this.provinciaFilterCtrl.valueChanges
+    this.provinciaFilterCtrl.valueChanges
       .pipe(takeUntil(this._onDestroy))
       .subscribe(() => {
         this.filterProvince();
-        if(this.provinciaSelection != undefined){
+        if (this.provinciaSelection != undefined) {
           this.getComuni(this.provinciaSelection);
         }
       });
 
-      this.comuneFilterCtrl.valueChanges
+    this.comuneFilterCtrl.valueChanges
       .pipe(takeUntil(this._onDestroy))
       .subscribe(() => {
         this.filterComuni();
@@ -90,7 +103,7 @@ export class ClientEditComponent implements OnInit {
     } else {
       this.regioniView = [] as Enum[];
       this.regioniList.forEach((element: { value: number, text: string; }) => {
-        if(element.text.includes(search)){
+        if (element.text.includes(search)) {
           this.regioniView.push(element);
         }
       });
@@ -105,7 +118,7 @@ export class ClientEditComponent implements OnInit {
     } else {
       this.provinceView = [] as Enum[];
       this.provinceList.forEach((element: { value: number, text: string; }) => {
-        if(element.text.includes(search)){
+        if (element.text.includes(search)) {
           this.provinceView.push(element);
         }
       });
@@ -120,7 +133,7 @@ export class ClientEditComponent implements OnInit {
     } else {
       this.comuniView = [] as Enum[];
       this.comuniList.forEach((element: { value: number, text: string; }) => {
-        if(element.text.includes(search)){
+        if (element.text.includes(search)) {
           this.comuniView.push(element);
         }
       });
@@ -149,68 +162,136 @@ export class ClientEditComponent implements OnInit {
     });
   }
 
-  clickUpdate(){
-    this.service.updateClient(this.client).subscribe((data) => {
-      console.log(data);
+  doUpdate() {
+    var formData = this.form.getRawValue();
+    console.log(formData);
+    formData.clients_id = this.client.clients_id;
+    formData.ccap = this.cap;
+    // console.log(this.form);
+    // Object.keys(this.form.controls).forEach(key => {
+    //   console.log(this.form.controls[key].value);
+    // });
+    this.service.updateClient(formData).subscribe((data) => {
+      if (data == true) {
+        this.openSnackBar("Aggiornato con successo", "Ok");
+      }
     });
   }
 
-  openDialog(): void {
+  openDialog(text: string): void {
     const dialogRef = this.dialog.open(ErrorPopupComponent, {
-      width: '250px',
-      data: {text: ""},
+      width: '300px',
+      data: { text: text },
     });
-    
+
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      //save?
+      if (result == "true") {
+        this.doSave();
+      }
     });
   }
 
-  clickSave(){
-    var userExists = false;
-    this.service.getClient(this.client.nome, this.client.cognome, this.client.telefono).subscribe((data) => {
-      if(data != []){
-        var res = JSON.parse(data);
-        console.log(res);
-      } 
+  openSnackBar(message: string, actionMessage: string = 'Ok') {
+    this.snackBarRef = this.snackBar.open(message, actionMessage, {
+      duration: 3000,
     });
-    this.service.getClient(this.client.nome, this.client.cognome).subscribe((data) => {
-      if(data != []){
-        var res = JSON.parse(data);
-        console.log(res);
-      } 
+    this.snackBarRef.afterDismissed().subscribe(() => {
+      this.clickBack();
     });
+  }
 
-    if(userExists){
-      //@@@@@@@@@@@@@@@@@@@ - errore? popup con continua probably
-    } else {
-      this.doSaveClient();
+  // getDataFromControls(){
+  //   Object.keys(this.myForm.controls).forEach(key => {
+  //     this.myForm.controls[key].markAsDirty();
+  //   });
+  // }
+
+  clickSave() {
+    if (this.form.valid) {
+      if (this.isUpdate) {
+        this.doUpdate();
+      } else {
+        this.trySave();
+      }
     }
   }
 
-  doSaveClient() {
-    this.service.saveClient(this.client).subscribe((data) =>{
-      console.log(data);
+  trySave() {
+    var formData = this.form.getRawValue();
+    this.service.getClient(formData.nome, formData.cognome, formData.telefono).subscribe((data) => {
+      if (data != []) {
+        console.log(data);
+        if (data.length > 0) {
+          this.openDialog("Utente gia esistente, continuare?");
+        } else {
+          this.doSave();
+        }
+      }
     });
   }
 
-  clickBack(){
+  doSave() {
+    var formData = this.form.getRawValue();
+    this.service.saveClient(formData).subscribe((data) => {
+      this.openSnackBar("Salvato con successo", "Ok");
+    });
+  }
+
+  clickBack() {
     this.router.navigate(['/client']);
   }
 
-  loadData(id: any){
-    this.service.getClientById(id).subscribe((data) =>{
+  getFormData() {
+    var clientData = new ClientSelectResults();
+    // clientData.nome = this.nomeFormControl.value;
+    // clientData.cognome = this.cognomeFormControl.value;
+
+    // clientData.telefono = this.telefonoFormControl.value;
+    // clientData.mail = this.emailFormControl.value;
+    // clientData.via = this.viaFormControl.value;
+    // clientData.civico = this.civicoFormControl.value;
+    clientData.ccap = this.cap;
+
+    return clientData;
+
+  }
+
+  loadData(id: any) {
+    this.service.getClientById(id).subscribe((data) => {
+
       var res = JSON.parse(data)[0];
-      console.log(data);
       this.client = res;
-      console.log(this.client);
       this.isClientLoaded = true;
-      this.getProvince(res.cod_regione);
-      this.getComuni(res.sigla);
-      this.regioneSelection = res.cod_regione;
-      this.provinciaSelection = res.sigla;
-      
+
+      this.form.setValue({
+        nome: res.nome,
+        cognome: res.cognome,
+        telefono: res.telefono,
+        mail: res.mail,
+        via: res.via,
+        civico: res.civico
+      });
+
+      this.cap = res.ccap;
+      // this.nomeFormControl.setValue(res.nome);
+      // this.cognomeFormControl.setValue(res.cognome);
+      // this.telefonoFormControl.setValue(res.telefono);
+      // this.emailFormControl.setValue(res.mail);
+      // this.viaFormControl.setValue(res.via);
+      // this.civicoFormControl.setValue(res.civico);
+
+
+      if (res.cod_regione) {
+        this.getProvince(res.cod_regione);
+        this.regioneSelection = res.cod_regione;
+      }
+      if (res.sigla) {
+        this.getComuni(res.sigla);
+        this.provinciaSelection = res.sigla;
+      }
+
+
+
     });
   }
 

@@ -36,8 +36,11 @@ export class ClientComponent implements OnInit {
       var parsedData = JSON.parse(data);
       parsedData.forEach((element: { comune: string; sigla: string; regione: string; ccap: string; via: string; civico: string; indirizzoCompleto: string}) => {
         element.indirizzoCompleto = element.via + ' ' + element.civico + ', ' + element.comune + ', ' + element.ccap + ' ' + element.sigla + ' ' + element.regione
+        var regex = new RegExp('null,? ?');
+        while(element.indirizzoCompleto.includes('null')){
+          element.indirizzoCompleto = element.indirizzoCompleto.replace(regex, ' ');
+        }
       });
-      console.log(parsedData);
       this.tblData = parsedData;
     });
   }
@@ -48,7 +51,6 @@ export class ClientComponent implements OnInit {
 
   edit(rowIndex: number): void {
     var rowData = this.tblData.filter((_v, k) => k == rowIndex)[0];
-    console.log(rowData);
     this.showDetail(rowData);
   }
 

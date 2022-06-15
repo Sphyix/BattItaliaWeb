@@ -20,33 +20,51 @@ export class EnumService {
 
   tipoOggetti = [] as Enum[];
 
-  
-  
+
+
 
   constructor(private http: HttpClient) { }
 
   loadEnums() {
-    this.loadUserPermissions();
-    this.loadStato();
-    this.loadDifficolta();
-    this.loadTipoOggetto();
+
+    if (this.stati.length == 0) {
+      this.loadStato();
+    }
+
+    if (this.difficolta.length == 0) {
+      this.loadDifficolta();
+    }
+
+    if (this.tipoOggetti.length == 0) {
+      this.loadTipoOggetto();
+    }
   }
 
-  private loadUserPermissions() {
-    this.http.get(API_URL + "permissions", { responseType: 'text' }).subscribe(data => {
+  // async loadPermissions() {
+  //   await this.loadUserPermissions().then(() => {
+  //     return;
+  //   });
+  // }
+
+  async loadUserPermissions() {
+    return new Promise( resolve =>  this.http.get(API_URL + "permissions", { responseType: 'text' }).subscribe(data => {
       var res = JSON.parse(data);
       res.forEach((element: { user_permission: string; user_permission_id: number; }) => {
         var f = new Enum(element.user_permission, element.user_permission_id);
         this.permissions.push(f);
       });
-    });
+      resolve("");
+    })
+    );
   }
 
-  getPermission(id: number){
+  getPermission(id: number) {
     var f = "";
-    if(this.permissions? this.permissions.length >= id : false){
-      f = this.permissions[id].text;
-    }
+    this.permissions?.forEach(element => {
+      if(element.value == id){
+        f = element.text;
+      }
+    });
     return f;
   }
 
@@ -61,9 +79,9 @@ export class EnumService {
     });
   }
 
-  getStato(id: number){
+  getStato(id: number) {
     var f = "";
-    if(this.stati?.length >= id){
+    if (this.stati?.length >= id) {
       f = this.stati[id].text;
     }
     return f;
@@ -79,9 +97,9 @@ export class EnumService {
     });
   }
 
-  getDifficolta(id: number){
+  getDifficolta(id: number) {
     var f = "";
-    if(this.difficolta?.length >= id){
+    if (this.difficolta?.length >= id) {
       f = this.difficolta[id].text;
     }
     return f;
@@ -97,17 +115,17 @@ export class EnumService {
     });
   }
 
-  addTipoOggetto(nomeOggetto: string){
+  addTipoOggetto(nomeOggetto: string) {
     this.http.post(API_URL, nomeOggetto).subscribe(data => {
-      if(data == true){
+      if (data == true) {
         this.loadTipoOggetto();
       }
     });
   }
 
-  getTipoOggetto(id: number){
+  getTipoOggetto(id: number) {
     var f = "";
-    if(this.tipoOggetti?.length >= id){
+    if (this.tipoOggetti?.length >= id) {
       f = this.tipoOggetti[id].text;
     }
     return f;

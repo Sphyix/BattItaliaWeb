@@ -40,7 +40,6 @@ export class ClientService {
   }
 
   updateClient(client: ClientSelectResults): Observable<any>{
-    console.log(client);
     return this.http.patch(API_URL, client);
   }
 

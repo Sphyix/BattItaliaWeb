@@ -41,20 +41,16 @@ export class ProfileComponent implements OnInit {
       parsedData.forEach((element: { permissionText: string; permission: number; }) => {
         element.permissionText = this.enumService.getPermission(element.permission);
       });
-      console.log(parsedData);
       this.tblData = parsedData;
-      console.log(this.tblData);
     });
   }
 
   edit(rowIndex: number): void {
     var rowData = this.tblData.filter((_v, k) => k == rowIndex)[0];
     this.showDetail(rowData);
-    console.log(rowData);
   }
 
   showDetail(rowData?: any): void {
-    console.log(rowData);
     this.router.navigate(['/profile/edit', rowData.users_id]);
   }
 

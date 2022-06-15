@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Enum } from '../common/models/enum';
 import { AuthService } from '../_services/auth.service';
+import { EnumService } from '../_services/enum.service';
 import { TokenStorageService } from '../_services/token-storage.service';
 
 @Component({
@@ -15,14 +17,21 @@ export class LoginComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
-  roles: string[] = [];
+  roles: number;
+  utente: string = "";
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
+  roleText: string = "";
+
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private enumService: EnumService) { }
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
+      this.utente = this.tokenStorage.getUser().userName;
+      this.enumService.loadUserPermissions().then(() => {
+        this.roleText = this.enumService.getPermission(this.roles);
+      });
     }
   }
 
@@ -34,7 +43,6 @@ export class LoginComponent implements OnInit {
         this.tokenStorage.saveToken(data.access_token);
         this.tokenStorage.saveRefreshToken(data.refreshToken);
         this.tokenStorage.saveUser(data);
-        console.log(data);
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;

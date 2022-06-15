@@ -24,7 +24,6 @@ export class MyWorkEditComponent implements OnInit {
 
   loadData(id: number) {
     this.service.getWorkOrder(id).subscribe((data) => {
-      console.log(data);
       this.workOrderData = data[0];
       this.workOrderData.tipoOggettoText = this.enumService.getTipoOggetto(this.workOrderData.tipoOggetto);
       this.workOrderData.statoText = this.enumService.getTipoOggetto(this.workOrderData.stato);
